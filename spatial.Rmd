@@ -1,0 +1,72 @@
+---
+title: "Spatial Data & Analyses in R"
+author: "Alex Slavenko & Maria Novosolov"
+date: "19 May 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+## Types of spatial data
+
+Maria's stuff
+
+## Importing Spatial Data
+
+Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
+
+```{r rgdal, echo = TRUE}
+library(rgdal)
+
+pkmng_countries <- readOGR(dsn = "Data",
+                           layer = "pkmng_polygons")
+head(pkmng_countries)
+```
+
+##
+
+As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
+```{r spdplyr, echo = TRUE}
+library(spdplyr)
+pkmng_countries
+```
+
+##
+
+With this package, you can use tidyverse functions to manipulate your spatial data:
+```{r spdplyr 2, echo = TRUE}
+#filter out all countries without any Pokemon sightings, and let's rename the column while we're at it:
+pkmng_countries %>%
+  filter(pkmn_rc > 0) %>%
+  rename(Country = NAME)
+```
+
+##
+
+Now let's load our point data:
+```{r points, echo = TRUE}
+pkmng_points <- read_csv("Data/pkmng_points.csv")
+pkmng_points
+```
+
+We are going to create a shapefile from this table.
+
+```{r points 2, echo = TRUE}
+library(sp)
+xy <- tibble(longitude = pkmng_points$longitude,
+             latitude = pkmng_points$latitude)
+pkmng_points <- SpatialPointsDataFrame(coords = xy,
+                                      data = pkmng_points)
+```
+
+##
+
+```{r geojson, echo = TRUE}
+library(geojsonio)
+library(rmapshaper)
+pkmng_countries_json <- geojson_json(pkmng_countries) #this can be VERY time-consuming
+```
+
