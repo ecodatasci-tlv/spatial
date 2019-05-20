@@ -1,0 +1,44 @@
+---
+title: "Working with spatial data in R"
+subtitle: "https://github.com/ecodatasci-tlv/spatial"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "custom-fonts.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: '16:9'
+      beforeInit: "https://platform.twitter.com/widgets.js"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+conflicted::conflict_prefer("filter", "dplyr")
+
+options(htmltools.dir.version = FALSE,
+        tibble.width = 70,
+        ggplot2.continuous.colour = "viridis",
+        ggplot2.continuous.fill = "viridis")
+opts_chunk$set(
+  fig.width = 6.5,
+  fig.height = 4.5,
+  fig.align = "center",
+  cache = TRUE
+)
+theme_set(theme_minimal() +
+            theme(text = element_text(size = 20))) 
+```
+
+# Topics we'll cover today:
+
+* Types of spatial data
+* Importing/Exporting spatial data
+* Projections, extents, and units
+* Comparison of different GIS tools out there
+* Spatial data manipulation
+* Intro to spatial analysis
+* Visualizations (if we have time)
+
