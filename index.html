@@ -93,8 +93,6 @@ Represents continuous changes across a landscape (for example elevation)
 ADD A PICTURE
 
 ---
-
-
 # Importing Spatial Data
 
 Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
@@ -102,643 +100,39 @@ Now that we've learned about different types of spatial data, let's load some. W
 
 ```r
 library(rgdal)
-```
-
-```
-## Loading required package: sp
-```
-
-```
-## rgdal: version: 1.4-3, (SVN revision 828)
-##  Geospatial Data Abstraction Library extensions to R successfully loaded
-##  Loaded GDAL runtime: GDAL 2.2.3, released 2017/11/20
-##  Path to GDAL shared files: C:/Program Files/R/R-3.5.3/library/rgdal/gdal
-##  GDAL binary built with GEOS: TRUE 
-##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
-##  Path to PROJ.4 shared files: C:/Program Files/R/R-3.5.3/library/rgdal/proj
-##  Linking to sp version: 1.3-1
-```
-
-```r
 pkmng_countries &lt;- readOGR(dsn = "Data",
                            layer = "pkmng_polygons")
 ```
 
 ```
 ## OGR data source with driver: ESRI Shapefile 
-## Source: "D:\Maria Novosolov\Dropbox\Studies\ecodatasci_tlv\spatial_analysis\Data", layer: "pkmng_polygons"
+## Source: "D:\R Projects\spatial\Data", layer: "pkmng_polygons"
 ## with 246 features
 ## It has 12 fields
 ```
+
+---
 
 ```r
 head(pkmng_countries)
 ```
 
 ```
-## An object of class "SpatialPolygonsDataFrame"
-## Slot "data":
-##   FIPS ISO2 ISO3 UN                NAME   AREA  POP2005 REGION SUBREGI
-## 0   AC   AG  ATG 28 Antigua and Barbuda     44    83039     19      29
-## 1   AG   DZ  DZA 12             Algeria 238174 32854159      2      15
-## 2   AJ   AZ  AZE 31          Azerbaijan   8260  8352021    142     145
-## 3   AL   AL  ALB  8             Albania   2740  3153731    150      39
-## 4   AM   AM  ARM 51             Armenia   2820  3017661    142     145
-## 5   AO   AO  AGO 24              Angola 124670 16095214      2      17
-##       LON     LAT pkmn_rc
-## 0 -61.783  17.078      NA
-## 1   2.632  28.163      NA
-## 2  47.395  40.430      NA
-## 3  20.068  41.143      NA
-## 4  44.563  40.534      NA
-## 5  17.544 -12.296      22
-## 
-## Slot "polygons":
-## [[1]]
-## An object of class "Polygons"
-## Slot "Polygons":
-## [[1]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] -61.78945  17.09768
-## 
-## Slot "area":
-## [1] 0.009571241
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##           [,1]     [,2]
-## [1,] -61.68667 17.02444
-## [2,] -61.88722 17.10527
-## [3,] -61.79445 17.16333
-## [4,] -61.68667 17.02444
-## 
-## 
-## [[2]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] -61.81843  17.63185
-## 
-## Slot "area":
-## [1] 0.007740412
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##           [,1]     [,2]
-## [1,] -61.72917 17.60861
-## [2,] -61.85306 17.58305
-## [3,] -61.87306 17.70389
-## [4,] -61.72917 17.60861
-## 
-## 
-## 
-## Slot "plotOrder":
-## [1] 1 2
-## 
-## Slot "labpt":
-## [1] -61.78945  17.09768
-## 
-## Slot "ID":
-## [1] "0"
-## 
-## Slot "area":
-## [1] 0.01731165
-## 
-## 
-## [[2]]
-## An object of class "Polygons"
-## Slot "Polygons":
-## [[1]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1]  2.627813 28.172110
-## 
-## Slot "area":
-## [1] 213.9407
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##            [,1]     [,2]
-##  [1,]  2.963610 36.80222
-##  [2,]  4.785832 36.89472
-##  [3,]  5.328055 36.64027
-##  [4,]  6.398333 37.08639
-##  [5,]  8.622030 36.94137
-##  [6,]  8.183611 36.52416
-##  [7,]  8.251665 34.64444
-##  [8,]  7.492499 33.88750
-##  [9,]  8.348610 32.53333
-## [10,]  9.055277 32.10000
-## [11,]  9.537113 30.23439
-## [12,]  9.303888 30.12250
-## [13,]  9.766388 29.42778
-## [14,]  9.948332 27.82444
-## [15,]  9.871666 26.51416
-## [16,]  9.398333 26.15333
-## [17,] 10.252222 24.60583
-## [18,] 11.558887 24.30250
-## [19,] 11.986475 23.52231
-## [20,]  7.450807 20.85286
-## [21,]  5.812499 19.44611
-## [22,]  4.245277 19.14666
-## [23,]  3.331944 18.97639
-## [24,]  3.233055 19.82027
-## [25,]  1.795833 20.30833
-## [26,]  1.167500 20.74111
-## [27,]  1.169662 21.10254
-## [28,] -4.806111 25.00028
-## [29,] -6.662778 26.12917
-## [30,] -8.666790 27.29046
-## [31,] -8.666668 27.66666
-## [32,] -8.667223 28.70944
-## [33,] -7.123889 29.63694
-## [34,] -5.538334 29.90250
-## [35,] -4.920556 30.50805
-## [36,] -3.626667 30.97055
-## [37,] -3.818334 31.69555
-## [38,] -2.853889 32.08833
-## [39,] -1.180556 32.11055
-## [40,] -1.010278 32.50833
-## [41,] -1.668056 33.26111
-## [42,] -1.747222 34.74721
-## [43,] -2.209445 35.08583
-## [44,]  0.950000 36.45027
-## [45,]  2.963610 36.80222
-## 
-## 
-## 
-## Slot "plotOrder":
-## [1] 1
-## 
-## Slot "labpt":
-## [1]  2.627813 28.172110
-## 
-## Slot "ID":
-## [1] "1"
-## 
-## Slot "area":
-## [1] 213.9407
-## 
-## 
-## [[3]]
-## An object of class "Polygons"
-## Slot "Polygons":
-## [[1]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 47.67525 40.34927
-## 
-## Slot "area":
-## [1] 8.494524
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##           [,1]     [,2]
-##  [1,] 46.57138 41.87193
-##  [2,] 47.76693 41.19609
-##  [3,] 48.58396 41.83577
-##  [4,] 49.52805 40.66277
-##  [5,] 50.37499 40.26222
-##  [6,] 49.48805 40.15054
-##  [7,] 48.88828 38.44241
-##  [8,] 48.02082 38.83554
-##  [9,] 48.35979 39.38522
-## [10,] 47.97666 39.71923
-## [11,] 46.54038 38.87559
-## [12,] 46.54138 39.56444
-## [13,] 45.59582 39.97804
-## [14,] 46.00194 40.22555
-## [15,] 45.15387 41.19860
-## [16,] 45.02294 41.29705
-## [17,] 45.33666 41.46250
-## [18,] 46.52082 41.04999
-## [19,] 46.69387 41.31220
-## [20,] 46.19443 41.68582
-## [21,] 46.45175 41.89706
-## [22,] 46.57138 41.87193
-## 
-## 
-## [[2]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 45.49023 39.39222
-## 
-## Slot "area":
-## [1] 0.5056316
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##          [,1]     [,2]
-## [1,] 45.08332 39.76805
-## [2,] 45.81999 39.54972
-## [3,] 46.17825 38.84115
-## [4,] 45.00443 39.41638
-## [5,] 44.81304 39.63082
-## [6,] 44.77886 39.70638
-## [7,] 45.08332 39.76805
-## 
-## 
-## [[3]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 45.53453 40.63508
-## 
-## Slot "area":
-## [1] 0.001693513
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##          [,1]     [,2]
-## [1,] 45.51305 40.60722
-## [2,] 45.51749 40.66554
-## [3,] 45.57305 40.63249
-## [4,] 45.51305 40.60722
-## 
-## 
-## [[4]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 45.01879 41.05240
-## 
-## Slot "area":
-## [1] 0.0009946189
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##          [,1]     [,2]
-## [1,] 45.04527 41.03527
-## [2,] 45.00999 41.03305
-## [3,] 45.00111 41.08888
-## [4,] 45.04527 41.03527
-## 
-## 
-## [[5]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 45.22342 40.98129
-## 
-## Slot "area":
-## [1] 0.0003603638
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##          [,1]     [,2]
-## [1,] 45.24527 40.97694
-## [2,] 45.22916 40.96915
-## [3,] 45.19582 40.99777
-## [4,] 45.24527 40.97694
-## 
-## 
-## 
-## Slot "plotOrder":
-## [1] 1 2 3 4 5
-## 
-## Slot "labpt":
-## [1] 47.67525 40.34927
-## 
-## Slot "ID":
-## [1] "2"
-## 
-## Slot "area":
-## [1] 9.003204
-## 
-## 
-## [[4]]
-## An object of class "Polygons"
-## Slot "Polygons":
-## [[1]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 20.07437 41.13255
-## 
-## Slot "area":
-## [1] 2.890429
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##           [,1]     [,2]
-##  [1,] 19.43621 41.02107
-##  [2,] 19.60056 41.79666
-##  [3,] 19.36777 41.84900
-##  [4,] 19.64583 42.61805
-##  [5,] 20.07142 42.56091
-##  [6,] 20.58964 41.88219
-##  [7,] 20.49278 41.33111
-##  [8,] 20.82111 40.90888
-##  [9,] 20.98349 40.85589
-## [10,] 20.67194 40.09805
-## [11,] 20.01003 39.69120
-## [12,] 19.86305 40.03972
-## [13,] 19.28861 40.41750
-## [14,] 19.47861 40.35027
-## [15,] 19.43621 41.02107
-## 
-## 
-## 
-## Slot "plotOrder":
-## [1] 1
-## 
-## Slot "labpt":
-## [1] 20.07437 41.13255
-## 
-## Slot "ID":
-## [1] "3"
-## 
-## Slot "area":
-## [1] 2.890429
-## 
-## 
-## [[5]]
-## An object of class "Polygons"
-## Slot "Polygons":
-## [[1]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 44.98386 40.30433
-## 
-## Slot "area":
-## [1] 3.208623
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##           [,1]     [,2]
-##  [1,] 45.15387 41.19860
-##  [2,] 46.00194 40.22555
-##  [3,] 45.59582 39.97804
-##  [4,] 46.54138 39.56444
-##  [5,] 46.54038 38.87559
-##  [6,] 46.17825 38.84115
-##  [7,] 45.81999 39.54972
-##  [8,] 45.08332 39.76805
-##  [9,] 44.77886 39.70638
-## [10,] 44.34722 40.02389
-## [11,] 43.65750 40.10860
-## [12,] 43.75194 40.74000
-## [13,] 43.46077 41.11296
-## [14,] 45.02294 41.29705
-## [15,] 45.15387 41.19860
-## 
-## 
-## [[2]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 45.53453 40.63508
-## 
-## Slot "area":
-## [1] 0.001693513
-## 
-## Slot "hole":
-## [1] TRUE
-## 
-## Slot "ringDir":
-## [1] -1
-## 
-## Slot "coords":
-##          [,1]     [,2]
-## [1,] 45.57305 40.63249
-## [2,] 45.51749 40.66554
-## [3,] 45.51305 40.60722
-## [4,] 45.57305 40.63249
-## 
-## 
-## [[3]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 45.01879 41.05240
-## 
-## Slot "area":
-## [1] 0.0009946189
-## 
-## Slot "hole":
-## [1] TRUE
-## 
-## Slot "ringDir":
-## [1] -1
-## 
-## Slot "coords":
-##          [,1]     [,2]
-## [1,] 45.00999 41.03305
-## [2,] 45.04527 41.03527
-## [3,] 45.00111 41.08888
-## [4,] 45.00999 41.03305
-## 
-## 
-## [[4]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 45.22342 40.98129
-## 
-## Slot "area":
-## [1] 0.0003603638
-## 
-## Slot "hole":
-## [1] TRUE
-## 
-## Slot "ringDir":
-## [1] -1
-## 
-## Slot "coords":
-##          [,1]     [,2]
-## [1,] 45.19582 40.99777
-## [2,] 45.22916 40.96915
-## [3,] 45.24527 40.97694
-## [4,] 45.19582 40.99777
-## 
-## 
-## 
-## Slot "plotOrder":
-## [1] 1 2 3 4
-## 
-## Slot "labpt":
-## [1] 44.98386 40.30433
-## 
-## Slot "ID":
-## [1] "4"
-## 
-## Slot "area":
-## [1] 3.208623
-## 
-## 
-## [[6]]
-## An object of class "Polygons"
-## Slot "Polygons":
-## [[1]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1]  17.55246 -12.35038
-## 
-## Slot "area":
-## [1] 103.8622
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##           [,1]       [,2]
-##  [1,] 13.99750  -5.848612
-##  [2,] 16.57972  -5.900833
-##  [3,] 16.94167  -7.198610
-##  [4,] 17.62417  -8.098057
-##  [5,] 19.37306  -7.996111
-##  [6,] 19.53895  -6.996614
-##  [7,] 20.62975  -6.913881
-##  [8,] 20.54872  -7.283615
-##  [9,] 21.78296  -7.280842
-## [10,] 21.79056  -9.405556
-## [11,] 22.31222 -10.364445
-## [12,] 22.25389 -11.209723
-## [13,] 23.98621 -10.870461
-## [14,] 24.02056 -13.006390
-## [15,] 21.99833 -13.004168
-## [16,] 22.00015 -16.171661
-## [17,] 23.47611 -17.625835
-## [18,] 23.28472 -17.662502
-## [19,] 20.85417 -18.016392
-## [20,] 18.91583 -17.815556
-## [21,] 18.45154 -17.389835
-## [22,] 13.99322 -17.423946
-## [23,] 13.16055 -16.952778
-## [24,] 11.75278 -17.254833
-## [25,] 11.82083 -16.503056
-## [26,] 11.81083 -15.993057
-## [27,] 11.73139 -15.846668
-## [28,] 12.50972 -13.425280
-## [29,] 13.79250 -11.791668
-## [30,] 13.77361 -10.684723
-## [31,] 12.98445  -9.087502
-## [32,] 13.39139  -8.387222
-## [33,] 12.24500  -6.098055
-## [34,] 13.17888  -5.856329
-## [35,] 13.99750  -5.848612
-## 
-## 
-## [[2]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1] 12.469108 -5.056746
-## 
-## Slot "area":
-## [1] 0.615941
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##          [,1]      [,2]
-## [1,] 13.08889 -4.662500
-## [2,] 12.56555 -5.025555
-## [3,] 12.52667 -5.724167
-## [4,] 12.21455 -5.768555
-## [5,] 12.02613 -5.014996
-## [6,] 12.77905 -4.388990
-## [7,] 13.09139 -4.633055
-## [8,] 13.08889 -4.662500
-## 
-## 
-## [[3]]
-## An object of class "Polygon"
-## Slot "labpt":
-## [1]  11.73981 -16.69852
-## 
-## Slot "area":
-## [1] 0.001240163
-## 
-## Slot "hole":
-## [1] FALSE
-## 
-## Slot "ringDir":
-## [1] 1
-## 
-## Slot "coords":
-##          [,1]      [,2]
-## [1,] 11.75083 -16.75528
-## [2,] 11.69361 -16.53556
-## [3,] 11.77500 -16.80473
-## [4,] 11.75083 -16.75528
-## 
-## 
-## 
-## Slot "plotOrder":
-## [1] 1 2 3
-## 
-## Slot "labpt":
-## [1]  17.55246 -12.35038
-## 
-## Slot "ID":
-## [1] "5"
-## 
-## Slot "area":
-## [1] 104.4794
-## 
-## 
-## 
-## Slot "plotOrder":
-## [1] 2 6 3 5 4 1
-## 
-## Slot "bbox":
-##         min      max
-## x -61.88722 50.37499
-## y -18.01639 42.61805
-## 
-## Slot "proj4string":
-## CRS arguments:
-##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+## class       : SpatialPolygonsDataFrame 
+## features    : 6 
+## extent      : -61.88722, 50.37499, -18.01639, 42.61805  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## variables   : 12
+## # A tibble: 6 x 12
+##   FIPS  ISO2  ISO3     UN NAME    AREA POP2005 REGION SUBREGI    LON
+##   &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;int&gt;  &lt;dbl&gt;
+## 1 AC    AG    ATG      28 Anti~     44  8.30e4     19      29 -61.8 
+## 2 AG    DZ    DZA      12 Alge~ 238174  3.29e7      2      15   2.63
+## 3 AJ    AZ    AZE      31 Azer~   8260  8.35e6    142     145  47.4 
+## 4 AL    AL    ALB       8 Alba~   2740  3.15e6    150      39  20.1 
+## 5 AM    AM    ARM      51 Arme~   2820  3.02e6    142     145  44.6 
+## 6 AO    AO    AGO      24 Ango~ 124670  1.61e7      2      17  17.5 
+## # ... with 2 more variables: LAT &lt;dbl&gt;, pkmn_rc &lt;int&gt;
 ```
 
 ---
@@ -809,43 +203,8 @@ pkmng_countries %&gt;%
 Now let's load our point data:
 
 ```r
-pkmng_points &lt;- read_csv("Data/pkmng_points.csv")
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_logical(),
-##   pokemonId = col_double(),
-##   latitude = col_double(),
-##   longitude = col_double(),
-##   appearedLocalTime = col_datetime(format = ""),
-##   cellId_90m = col_double(),
-##   cellId_180m = col_double(),
-##   cellId_370m = col_double(),
-##   cellId_730m = col_double(),
-##   cellId_1460m = col_double(),
-##   cellId_2920m = col_double(),
-##   cellId_5850m = col_double(),
-##   appearedTimeOfDay = col_character(),
-##   appearedHour = col_double(),
-##   appearedMinute = col_double(),
-##   appearedDayOfWeek = col_character(),
-##   appearedDay = col_double(),
-##   appearedMonth = col_double(),
-##   appearedYear = col_double(),
-##   terrainType = col_double(),
-##   city = col_character()
-##   # ... with 19 more columns
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
-pkmng_points
+pkmng_points_dat &lt;- read_csv("Data/pkmng_points.csv")
+pkmng_points_dat
 ```
 
 ```
@@ -902,21 +261,543 @@ We are going to create a shapefile from this table.
 
 ```r
 library(sp)
-xy &lt;- tibble(longitude = pkmng_points$longitude,
-             latitude = pkmng_points$latitude)
+xy &lt;- tibble(longitude = pkmng_points_dat$longitude,
+             latitude = pkmng_points_dat$latitude)
 pkmng_points &lt;- SpatialPointsDataFrame(coords = xy,
-                                      data = pkmng_points)
+                                      data = pkmng_points_dat)
+pkmng_points
+```
+
+```
+## class       : SpatialPointsDataFrame 
+## features    : 29602 
+## extent      : -158.0198, 175.6162, -42.9845, 68.43698  (xmin, xmax, ymin, ymax)
+## crs         : NA 
+## variables   : 207
+## names       : pokemonId,   latitude,   longitude, appearedLocalTime,           cellId_90m,          cellId_180m,          cellId_370m,         cellId_730m,         cellId_1460m,         cellId_2920m,         cellId_5850m, appearedTimeOfDay, appearedHour, appearedMinute, appearedDayOfWeek, ... 
+## min values  :         1, -42.984504, -158.019758,        1472853011,    43172735374852096,    43172735576178688,    43172735307743232,   43172732086517760,    43172719201615872,    43172667662008320,    43172598942531584,         afternoon,            0,              0,         dummy_day, ... 
+## max values  :       149,   68.43698,  175.616223,        1473306687, 12280882455157669888, 12280882455224778752, 12280882455493214208, 1.2280882456567e+19, 12280882443682054144, 12280882495221661696, 12280882701380091904,             night,           23,             59,         Wednesday, ...
 ```
 
 ---
-# GEOJSON
+# GeoJSON
 
+So far we've been working with ESRI shapefiles. This is a format to encode geographic data, used widely in GIS systems.
+
+Alternatively, there is the java-based GeoJSON format for encoding geographic data, which can support the features we've discussed (points, polygons).
+
+There are advantages to GeoJSON, including reduced file sizes. Compare:
+
+---
 
 ```r
 library(geojsonio)
 library(rmapshaper)
+
+#we now convert our ESRI shapefile (a SpatialPoylgonsDataFrame object) to GeoJSON format:
 pkmng_countries_json &lt;- geojson_json(pkmng_countries) #this can be VERY time-consuming
 ```
+
+Compare the file sizes: 6.4 Mb for the ESRI format, compared to 1.1 Mb for the GeoJSON format!
+
+Read more about GeoJSON here: https://macwright.org/2015/03/23/geojson-second-bite.html
+
+---
+# Rasters
+Finally, importing rasters is easily done with the raster package:
+
+```r
+library(raster)
+pkmng_raster &lt;- raster("Data/pkmng_raster.tif")
+
+pkmng_raster
+```
+
+```
+## class      : RasterLayer 
+## dimensions : 85, 180, 15300  (nrow, ncol, ncell)
+## resolution : 2, 2  (x, y)
+## extent     : -180, 180, -86.42973, 83.57027  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## source     : D:/R Projects/spatial/Data/pkmng_raster.tif 
+## names      : pkmng_raster 
+## values     : 1, 116  (min, max)
+```
+
+---
+# Projections
+One of the most important things to remember when dealing with spatial data is the projection.
+
+A projection is a mathematical transformation of coordinates from the surface of a sphere on a 2D plane.
+
+.center[![](img/m-c.jpg)]
+
+---
+# Types of projections
+## Projections by surface
+Classification based on the type of surface onto which the globe is projected:
+* Cylindrical
+* Conic
+* Azimuthal
+
+etc.
+
+---
+## Projections by preservation of a metric property
+Classification based on which property is maintained in the projection:
+* Conformal (preserves shape, usually distorts area)
+* Equal-area (preserves area, usually distorts shape)
+* Equidistant (preserves distance from some point or line)
+
+etc.
+
+---
+You can view the Coordinate Reference System of your spatial objects:
+
+```r
+crs(pkmng_countries)
+```
+
+```
+## CRS arguments:
+##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+```
+
+You can see different values here, including the datum, units, etc.
+
+---
+Notice our points shapefile has no projection, because we didn't set it when creating the object:
+
+```r
+crs(pkmng_points)
+```
+
+```
+## CRS arguments: NA
+```
+
+---
+We can set the projection for this object, either by writing a string of our desired projection, or extracting the projection from an existing object:
+
+```r
+proj1 &lt;- crs("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+proj1
+```
+
+```
+## CRS arguments:
+##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+```
+
+```r
+proj2 &lt;- crs(pkmng_countries)
+proj2
+```
+
+```
+## CRS arguments:
+##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+```
+
+---
+
+```r
+proj4string(pkmng_points) &lt;- proj1
+pkmng_points
+```
+
+```
+## class       : SpatialPointsDataFrame 
+## features    : 29602 
+## extent      : -158.0198, 175.6162, -42.9845, 68.43698  (xmin, xmax, ymin, ymax)
+## crs         : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## variables   : 207
+## names       : pokemonId,   latitude,   longitude, appearedLocalTime,           cellId_90m,          cellId_180m,          cellId_370m,         cellId_730m,         cellId_1460m,         cellId_2920m,         cellId_5850m, appearedTimeOfDay, appearedHour, appearedMinute, appearedDayOfWeek, ... 
+## min values  :         1, -42.984504, -158.019758,        1472853011,    43172735374852096,    43172735576178688,    43172735307743232,   43172732086517760,    43172719201615872,    43172667662008320,    43172598942531584,         afternoon,            0,              0,         dummy_day, ... 
+## max values  :       149,   68.43698,  175.616223,        1473306687, 12280882455157669888, 12280882455224778752, 12280882455493214208, 1.2280882456567e+19, 12280882443682054144, 12280882495221661696, 12280882701380091904,             night,           23,             59,         Wednesday, ...
+```
+
+---
+You can also transform already existing objects to have different projections:
+
+
+```r
+pkmng_points_p &lt;- spTransform(pkmng_points,
+                              crs("+proj=laea  +lat_0=0 +lon_0=0"))
+pkmng_points_p
+```
+
+```
+## class       : SpatialPointsDataFrame 
+## features    : 29602 
+## extent      : -9285067, 11178209, -11993372, 9520128  (xmin, xmax, ymin, ymax)
+## crs         : +proj=laea +lat_0=0 +lon_0=0 +ellps=WGS84 
+## variables   : 207
+## names       : pokemonId,   latitude,   longitude, appearedLocalTime,           cellId_90m,          cellId_180m,          cellId_370m,         cellId_730m,         cellId_1460m,         cellId_2920m,         cellId_5850m, appearedTimeOfDay, appearedHour, appearedMinute, appearedDayOfWeek, ... 
+## min values  :         1, -42.984504, -158.019758,        1472853011,    43172735374852096,    43172735576178688,    43172735307743232,   43172732086517760,    43172719201615872,    43172667662008320,    43172598942531584,         afternoon,            0,              0,         dummy_day, ... 
+## max values  :       149,   68.43698,  175.616223,        1473306687, 12280882455157669888, 12280882455224778752, 12280882455493214208, 1.2280882456567e+19, 12280882443682054144, 12280882495221661696, 12280882701380091904,             night,           23,             59,         Wednesday, ...
+```
+
+---
+Why are projections so important?
+
+Here's our points mapped on top of a shapefile of countries:
+
+```r
+plot(countries, axes = T)
+plot(pkmng_points, add = T, pch = 1, col = "red")
+```
+
+&lt;img src="index_files/figure-html/map-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+Now, when the projections do not match:
+
+```r
+countries_p &lt;- spTransform(countries,
+                              crs("+proj=laea  +lat_0=0 +lon_0=0"))
+plot(countries_p, axes = T)
+plot(pkmng_points, add = T, pch = 1, col = "red")
+```
+
+&lt;img src="index_files/figure-html/map 2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+Whereas matching projections give us all the coordinates in the right place:
+
+```r
+plot(countries_p, axes = T)
+plot(pkmng_points_p, add = T, pch = 1, col = "red")
+```
+
+&lt;img src="index_files/figure-html/map 3-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Extent
+
+Spatial objects also have extents - these are the minimum and maximum X and Y coordinates of the object. They don't have to have data in them. The coordinates of course depend on your projection and units:
+
+
+```r
+countries@bbox
+```
+
+```
+##    min       max
+## x -180 180.00000
+## y  -90  83.57027
+```
+
+```r
+countries_p@bbox
+```
+
+```
+##         min      max
+## x -12726751 12733710
+## y -12641498 12299760
+```
+
+---
+For raster objects, you find the extent with this syntax:
+
+```r
+pkmng_raster@extent
+```
+
+```
+## class      : Extent 
+## xmin       : -180 
+## xmax       : 180 
+## ymin       : -86.42973 
+## ymax       : 83.57027
+```
+
+---
+You can change the extent of objects using the crop or extend functions, depending on whether you want to decrease or increase the extent:
+
+```r
+pkmng_raster_c &lt;- crop(pkmng_raster,
+                      extent(-50,
+                             100,
+                             0,
+                             80))
+```
+
+---
+
+```r
+plot(pkmng_raster)
+plot(pkmng_raster_c, add = T, col = "red")
+```
+
+&lt;img src="index_files/figure-html/extent 4-1.png" style="display: block; margin: auto;" /&gt;
+
+All the red cells are in the new, limited extent!
+
+---
+## Why is this important?
+
+If you try to do spatial arithmetics on objects with mismatching extents and projections, you'll get errors. For example:
+
+```r
+raster::intersect(countries_p, pkmng_raster_c)
+```
+
+```
+## Warning in intersect(x, y): non identical CRS
+```
+
+```
+## Warning in intersect(x, y): polygons do not intersect
+```
+
+```
+## NULL
+```
+
+---
+# MARIA STUFF ON SPATIAL DATA MANIPULATION
+
+---
+# Spatial autocorrelation
+Spatial data are not independent - violating assumptions of statistical tests.
+
+Spatial autocorrelation decreases with distance - but the distance depends on your data.
+
+So how do we test for spatial autocorrelation and what can we do about it?
+
+---
+## Testing for spatial autocorrelation
+
+We'll use the pgirmess package:
+
+```r
+library(pgirmess)
+
+#first we'll take a small sample of the points data, because this test is very time-consuming
+pkmng_points_dat_s &lt;- sample_frac(pkmng_points_dat, 0.05)
+pgi.cor &lt;- correlog(coords = pkmng_points_dat_s[,c("longitude","latitude")], #longitude and latitude, in that order
+                    z = pkmng_points_dat_s$temperature, #the variable we want to test for autocorrelation in
+                    method = "Moran")
+```
+
+---
+The X axis is distance, and the Y axis is our measure of autocorrelation. Values higher than 0 mean there is spatial autocorrelation in that distance class.
+
+```r
+plot(pgi.cor)
+```
+
+&lt;img src="index_files/figure-html/sp ac 2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Dealing with spatial autocorrelation
+There are various methods to "eliminate" spatial autocorrelation for hypothesis testing and statiscal inference. All are flawed, each in their own way.
+
+We won't talk about them here, but you can read more in the literature:
+https://onlinelibrary.wiley.com/doi/10.1111/j.2007.0906-7590.05171.x
+https://onlinelibrary.wiley.com/doi/10.1111/jbi.12953
+
+---
+# Spatial non-stationarity
+Often, relationships between variables can shift in space. So global coefficients of models can be very poor at describing the actual behaviour of your data.
+
+For example, let's look for a relationship between wind speed and temperature in our Pokemon Go sightings data:
+
+```r
+lm.model &lt;- lm(windSpeed ~
+             temperature,
+           data = pkmng_points_dat_s)
+summary(lm.model)
+```
+
+```
+## 
+## Call:
+## lm(formula = windSpeed ~ temperature, data = pkmng_points_dat_s)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -7.071 -3.112 -0.737  2.241 49.873 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  5.06517    0.40037  12.651  &lt; 2e-16 ***
+## temperature  0.07405    0.01766   4.194 2.91e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.249 on 1478 degrees of freedom
+## Multiple R-squared:  0.01176,	Adjusted R-squared:  0.01109 
+## F-statistic: 17.59 on 1 and 1478 DF,  p-value: 2.906e-05
+```
+
+---
+Now, we'll map the residuals from this model:
+
+```r
+resids&lt;-residuals(lm.model)
+colours &lt;- c("dark blue", "blue", "red", "dark red") 
+map.resids &lt;- SpatialPointsDataFrame(data = data.frame(resids),
+                                     coords = cbind(pkmng_points_dat_s$longitude,
+                                                    pkmng_points_dat_s$latitude)
+                                     ) 
+```
+
+---
+
+```r
+spplot(map.resids, cuts=quantile(resids), col.regions=colours, cex=1)
+```
+
+&lt;img src="index_files/figure-html/gwr 3-1.png" style="display: block; margin: auto;" /&gt;
+Notice how the red and blue dots are clustered together, and not randomly distributed - showing a spatial pattern in the residuals.
+
+---
+We can use a method called GWR (Globally Weighted Regression) to account for this - basically, you calculate a regression coefficient for each datum, weighing the contribution of all data based on their spatial distance from your focal datum.
+
+
+```r
+library(spgwr)
+```
+
+```
+## Warning: package 'spgwr' was built under R version 3.5.3
+```
+
+```
+## Warning: package 'spData' was built under R version 3.5.2
+```
+
+```r
+GWRbandwidth &lt;- gwr.sel(windSpeed ~
+                          temperature,
+                        data = pkmng_points_dat_s,
+                        coords = cbind(pkmng_points_dat_s$longitude,
+                                                    pkmng_points_dat_s$latitude),
+                        adapt = T)
+```
+
+```
+## Adaptive q: 0.381966 CV score: 25971.6 
+## Adaptive q: 0.618034 CV score: 26470.16 
+## Adaptive q: 0.236068 CV score: 25779.09 
+## Adaptive q: 0.145898 CV score: 25429.72 
+## Adaptive q: 0.09016994 CV score: 24672.23 
+## Adaptive q: 0.05572809 CV score: 23923.28 
+## Adaptive q: 0.03444185 CV score: 22690.01 
+## Adaptive q: 0.02128624 CV score: 21834.46 
+## Adaptive q: 0.01315562 CV score: 20909.26 
+## Adaptive q: 0.008130619 CV score: 20374.53 
+## Adaptive q: 0.005024999 CV score: 21990.94 
+## Adaptive q: 0.01005 CV score: 20553.34 
+## Adaptive q: 0.006944377 CV score: 21538.02 
+## Adaptive q: 0.008863756 CV score: 20508.88 
+## Adaptive q: 0.007677515 CV score: 20717.15 
+## Adaptive q: 0.008410652 CV score: 20342.56 
+## Adaptive q: 0.008357601 CV score: 20328.39 
+## Adaptive q: 0.008304636 CV score: 20328.57 
+## Adaptive q: 0.008357601 CV score: 20328.39
+```
+
+---
+
+```r
+gwr.model &lt;- gwr(windSpeed ~
+                   temperature,
+                 data = pkmng_points_dat_s,
+                 coords = cbind(pkmng_points_dat_s$longitude,
+                                pkmng_points_dat_s$latitude),
+                 adapt = GWRbandwidth,
+                 hatmatrix = T,
+                 se.fit = T
+                 )
+gwr.results &lt;- as_tibble(gwr.model$SDF)
+```
+
+---
+Now we can view the table of the results, and see the coefficient for each datum in our dataset - i.e. for each point locality. We can see they vary quite a bit.
+
+```r
+gwr.results
+```
+
+```
+## # A tibble: 1,480 x 14
+##    sum.w X.Intercept. temperature X.Intercept._se temperature_se
+##    &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;
+##  1  30.7        31.2      -1.02              3.18         0.131 
+##  2  13.8         6.22     -0.105             6.27         0.257 
+##  3  14.4        11.4      -0.0643            7.80         0.390 
+##  4  13.2         2.73      0.317             3.33         0.246 
+##  5  63.8         5.35      0.0547            1.15         0.0454
+##  6  45.0         6.98      0.0553            1.41         0.0763
+##  7  20.7        10.4      -0.201             2.64         0.135 
+##  8  13.9         1.26      0.365             3.11         0.182 
+##  9  14.4        11.4      -0.0654            7.78         0.389 
+## 10  13.1        -9.07      0.666             3.64         0.158 
+## # ... with 1,470 more rows, and 9 more variables: gwr.e &lt;dbl&gt;,
+## #   pred &lt;dbl&gt;, pred.se &lt;dbl&gt;, localR2 &lt;dbl&gt;,
+## #   X.Intercept._se_EDF &lt;dbl&gt;, temperature_se_EDF &lt;dbl&gt;,
+## #   pred.se.1 &lt;dbl&gt;, coord.x &lt;dbl&gt;, coord.y &lt;dbl&gt;
+```
+
+---
+Now let's plot this and see exactly what this non-stationarity looks like:
+
+
+```r
+pkmng_points_dat_s$coef &lt;- gwr.results$temperature
+countries_outline &lt;- fortify(countries,
+                             region = "NAME")
+
+mapWorld &lt;- borders("world", colour=NA, fill="gray")
+```
+
+```
+## Warning: package 'maps' was built under R version 3.5.2
+```
+
+```r
+gwr.map &lt;- ggplot(data = pkmng_points_dat_s,
+                  aes(x = longitude,
+                      y = latitude,
+                      colour = coef)
+                  ) + 
+  mapWorld +
+  geom_point() + 
+  scale_colour_gradient2(low = "red",
+                         mid = "white",
+                         high = "blue",
+                         midpoint = 0,
+                         space = "rgb",
+                         na.value = "grey50",
+                         guide = "colourbar",
+                         guide_legend(title="Coefs")) +
+  coord_equal()
+```
+
+```
+## Warning: Non Lab interpolation is deprecated
+```
+
+---
+And see how the regression coefficients change with space - blue for positive coefficients and red for negative ones:
+
+
+```r
+gwr.map
+```
+
+&lt;img src="index_files/figure-html/gwr 8-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# TAKE HOME MESSAGES
+
+* Be mindful of projections!
+* Be mindful of spatial autocorrelation!
+* Visualize spatial patterns!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
