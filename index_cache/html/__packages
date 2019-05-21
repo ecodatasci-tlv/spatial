@@ -9,3 +9,8 @@ purrr
 dplyr
 stringr
 forcats
+sp
+rgdal
+spdplyr
+geojsonio
+rmapshaper

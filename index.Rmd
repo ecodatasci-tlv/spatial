@@ -42,6 +42,71 @@ theme_set(theme_minimal() +
 * Intro to spatial analysis
 * Visualizations (if we have time)
 
+---
+class: inverse, middle, center
+
+#Data types
+
+
+
+
+*https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
+  
+---
+class: inverse, middle, center
+
+# Vector data
+---
+
+### Polygons 
+Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
+
+---
+
+### Lines
+One dimentional and are used to only to measure length
+---
+
+### Points
+Used to represent nonadjucent features 
+
+---
+
+IMPORTANT: In species distribution polygons are usually an over representation of the real distribtion, while point data are an under representation.
+---
+class: inverse, middle, center
+
+# Raster data
+
+Cell-based data, represents surfaces. Each cell 
+---
+
+### Continuous 
+Example: temperature, elevation, etc.
+
+### Discrete
+Example: population density, species richenss, etc.
+
+
+---
+
+Rasters have three types of datasets: 
+
+### thematic
+Used to represent discrete data, such as soil type or land use
+ADD A PICTURE
+---
+### spectral
+Aerial or setalite imagery
+ADD A PICTURE
+---
+### Surface
+Represents continuous changes across a landscape (for example elevation)
+ADD A PICTURE
+
+---
+
+
 # Importing Spatial Data
 
 Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
@@ -54,14 +119,14 @@ pkmng_countries <- readOGR(dsn = "Data",
 head(pkmng_countries)
 ```
 
-#
+---
 As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
 ```{r spdplyr, echo = TRUE}
 library(spdplyr)
 pkmng_countries
 ```
 
-#
+---
 With this package, you can use tidyverse functions to manipulate your spatial data:
 ```{r spdplyr 2, echo = TRUE}
 #filter out all countries without any Pokemon sightings, and let's rename the column while we're at it:
@@ -70,13 +135,14 @@ pkmng_countries %>%
   rename(Country = NAME)
 ```
 
-#
+---
 Now let's load our point data:
 ```{r points, echo = TRUE}
 pkmng_points <- read_csv("Data/pkmng_points.csv")
 pkmng_points
 ```
 
+---
 We are going to create a shapefile from this table.
 
 ```{r points 2, echo = TRUE}
@@ -87,6 +153,7 @@ pkmng_points <- SpatialPointsDataFrame(coords = xy,
                                       data = pkmng_points)
 ```
 
+---
 # GEOJSON
 
 ```{r geojson, echo = TRUE}

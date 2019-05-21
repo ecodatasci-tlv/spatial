@@ -3,7 +3,7 @@
   <head>
     <title>Working with spatial data in R</title>
     <meta charset="utf-8" />
-    <meta name="date" content="2019-05-20" />
+    <meta name="date" content="2019-05-21" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="custom-fonts.css" type="text/css" />
   </head>
@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Working with spatial data in R
 ## <a href="https://github.com/ecodatasci-tlv/spatial" class="uri">https://github.com/ecodatasci-tlv/spatial</a>
-### 2019-05-20
+### 2019-05-21
 
 ---
 
@@ -29,6 +29,894 @@ class: center, middle, inverse, title-slide
 * Spatial data manipulation
 * Intro to spatial analysis
 * Visualizations (if we have time)
+
+---
+class: inverse, middle, center
+
+#Data types
+
+
+
+
+*https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
+  
+---
+class: inverse, middle, center
+
+# Vector data
+---
+
+### Polygons 
+Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
+
+---
+
+### Lines
+One dimentional and are used to only to measure length
+---
+
+### Points
+Used to represent nonadjucent features 
+
+---
+
+IMPORTANT: In species distribution polygons are usually an over representation of the real distribtion, while point data are an under representation.
+---
+class: inverse, middle, center
+
+# Raster data
+
+Cell-based data, represents surfaces. Each cell 
+---
+
+### Continuous 
+Example: temperature, elevation, etc.
+
+### Discrete
+Example: population density, species richenss, etc.
+
+
+---
+
+Rasters have three types of datasets: 
+
+### thematic
+Used to represent discrete data, such as soil type or land use
+ADD A PICTURE
+---
+### spectral
+Aerial or setalite imagery
+ADD A PICTURE
+---
+### Surface
+Represents continuous changes across a landscape (for example elevation)
+ADD A PICTURE
+
+---
+
+
+# Importing Spatial Data
+
+Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
+
+
+```r
+library(rgdal)
+```
+
+```
+## Loading required package: sp
+```
+
+```
+## rgdal: version: 1.4-3, (SVN revision 828)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 2.2.3, released 2017/11/20
+##  Path to GDAL shared files: C:/Program Files/R/R-3.5.3/library/rgdal/gdal
+##  GDAL binary built with GEOS: TRUE 
+##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+##  Path to PROJ.4 shared files: C:/Program Files/R/R-3.5.3/library/rgdal/proj
+##  Linking to sp version: 1.3-1
+```
+
+```r
+pkmng_countries &lt;- readOGR(dsn = "Data",
+                           layer = "pkmng_polygons")
+```
+
+```
+## OGR data source with driver: ESRI Shapefile 
+## Source: "D:\Maria Novosolov\Dropbox\Studies\ecodatasci_tlv\spatial_analysis\Data", layer: "pkmng_polygons"
+## with 246 features
+## It has 12 fields
+```
+
+```r
+head(pkmng_countries)
+```
+
+```
+## An object of class "SpatialPolygonsDataFrame"
+## Slot "data":
+##   FIPS ISO2 ISO3 UN                NAME   AREA  POP2005 REGION SUBREGI
+## 0   AC   AG  ATG 28 Antigua and Barbuda     44    83039     19      29
+## 1   AG   DZ  DZA 12             Algeria 238174 32854159      2      15
+## 2   AJ   AZ  AZE 31          Azerbaijan   8260  8352021    142     145
+## 3   AL   AL  ALB  8             Albania   2740  3153731    150      39
+## 4   AM   AM  ARM 51             Armenia   2820  3017661    142     145
+## 5   AO   AO  AGO 24              Angola 124670 16095214      2      17
+##       LON     LAT pkmn_rc
+## 0 -61.783  17.078      NA
+## 1   2.632  28.163      NA
+## 2  47.395  40.430      NA
+## 3  20.068  41.143      NA
+## 4  44.563  40.534      NA
+## 5  17.544 -12.296      22
+## 
+## Slot "polygons":
+## [[1]]
+## An object of class "Polygons"
+## Slot "Polygons":
+## [[1]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] -61.78945  17.09768
+## 
+## Slot "area":
+## [1] 0.009571241
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##           [,1]     [,2]
+## [1,] -61.68667 17.02444
+## [2,] -61.88722 17.10527
+## [3,] -61.79445 17.16333
+## [4,] -61.68667 17.02444
+## 
+## 
+## [[2]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] -61.81843  17.63185
+## 
+## Slot "area":
+## [1] 0.007740412
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##           [,1]     [,2]
+## [1,] -61.72917 17.60861
+## [2,] -61.85306 17.58305
+## [3,] -61.87306 17.70389
+## [4,] -61.72917 17.60861
+## 
+## 
+## 
+## Slot "plotOrder":
+## [1] 1 2
+## 
+## Slot "labpt":
+## [1] -61.78945  17.09768
+## 
+## Slot "ID":
+## [1] "0"
+## 
+## Slot "area":
+## [1] 0.01731165
+## 
+## 
+## [[2]]
+## An object of class "Polygons"
+## Slot "Polygons":
+## [[1]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1]  2.627813 28.172110
+## 
+## Slot "area":
+## [1] 213.9407
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##            [,1]     [,2]
+##  [1,]  2.963610 36.80222
+##  [2,]  4.785832 36.89472
+##  [3,]  5.328055 36.64027
+##  [4,]  6.398333 37.08639
+##  [5,]  8.622030 36.94137
+##  [6,]  8.183611 36.52416
+##  [7,]  8.251665 34.64444
+##  [8,]  7.492499 33.88750
+##  [9,]  8.348610 32.53333
+## [10,]  9.055277 32.10000
+## [11,]  9.537113 30.23439
+## [12,]  9.303888 30.12250
+## [13,]  9.766388 29.42778
+## [14,]  9.948332 27.82444
+## [15,]  9.871666 26.51416
+## [16,]  9.398333 26.15333
+## [17,] 10.252222 24.60583
+## [18,] 11.558887 24.30250
+## [19,] 11.986475 23.52231
+## [20,]  7.450807 20.85286
+## [21,]  5.812499 19.44611
+## [22,]  4.245277 19.14666
+## [23,]  3.331944 18.97639
+## [24,]  3.233055 19.82027
+## [25,]  1.795833 20.30833
+## [26,]  1.167500 20.74111
+## [27,]  1.169662 21.10254
+## [28,] -4.806111 25.00028
+## [29,] -6.662778 26.12917
+## [30,] -8.666790 27.29046
+## [31,] -8.666668 27.66666
+## [32,] -8.667223 28.70944
+## [33,] -7.123889 29.63694
+## [34,] -5.538334 29.90250
+## [35,] -4.920556 30.50805
+## [36,] -3.626667 30.97055
+## [37,] -3.818334 31.69555
+## [38,] -2.853889 32.08833
+## [39,] -1.180556 32.11055
+## [40,] -1.010278 32.50833
+## [41,] -1.668056 33.26111
+## [42,] -1.747222 34.74721
+## [43,] -2.209445 35.08583
+## [44,]  0.950000 36.45027
+## [45,]  2.963610 36.80222
+## 
+## 
+## 
+## Slot "plotOrder":
+## [1] 1
+## 
+## Slot "labpt":
+## [1]  2.627813 28.172110
+## 
+## Slot "ID":
+## [1] "1"
+## 
+## Slot "area":
+## [1] 213.9407
+## 
+## 
+## [[3]]
+## An object of class "Polygons"
+## Slot "Polygons":
+## [[1]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 47.67525 40.34927
+## 
+## Slot "area":
+## [1] 8.494524
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##           [,1]     [,2]
+##  [1,] 46.57138 41.87193
+##  [2,] 47.76693 41.19609
+##  [3,] 48.58396 41.83577
+##  [4,] 49.52805 40.66277
+##  [5,] 50.37499 40.26222
+##  [6,] 49.48805 40.15054
+##  [7,] 48.88828 38.44241
+##  [8,] 48.02082 38.83554
+##  [9,] 48.35979 39.38522
+## [10,] 47.97666 39.71923
+## [11,] 46.54038 38.87559
+## [12,] 46.54138 39.56444
+## [13,] 45.59582 39.97804
+## [14,] 46.00194 40.22555
+## [15,] 45.15387 41.19860
+## [16,] 45.02294 41.29705
+## [17,] 45.33666 41.46250
+## [18,] 46.52082 41.04999
+## [19,] 46.69387 41.31220
+## [20,] 46.19443 41.68582
+## [21,] 46.45175 41.89706
+## [22,] 46.57138 41.87193
+## 
+## 
+## [[2]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 45.49023 39.39222
+## 
+## Slot "area":
+## [1] 0.5056316
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##          [,1]     [,2]
+## [1,] 45.08332 39.76805
+## [2,] 45.81999 39.54972
+## [3,] 46.17825 38.84115
+## [4,] 45.00443 39.41638
+## [5,] 44.81304 39.63082
+## [6,] 44.77886 39.70638
+## [7,] 45.08332 39.76805
+## 
+## 
+## [[3]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 45.53453 40.63508
+## 
+## Slot "area":
+## [1] 0.001693513
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##          [,1]     [,2]
+## [1,] 45.51305 40.60722
+## [2,] 45.51749 40.66554
+## [3,] 45.57305 40.63249
+## [4,] 45.51305 40.60722
+## 
+## 
+## [[4]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 45.01879 41.05240
+## 
+## Slot "area":
+## [1] 0.0009946189
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##          [,1]     [,2]
+## [1,] 45.04527 41.03527
+## [2,] 45.00999 41.03305
+## [3,] 45.00111 41.08888
+## [4,] 45.04527 41.03527
+## 
+## 
+## [[5]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 45.22342 40.98129
+## 
+## Slot "area":
+## [1] 0.0003603638
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##          [,1]     [,2]
+## [1,] 45.24527 40.97694
+## [2,] 45.22916 40.96915
+## [3,] 45.19582 40.99777
+## [4,] 45.24527 40.97694
+## 
+## 
+## 
+## Slot "plotOrder":
+## [1] 1 2 3 4 5
+## 
+## Slot "labpt":
+## [1] 47.67525 40.34927
+## 
+## Slot "ID":
+## [1] "2"
+## 
+## Slot "area":
+## [1] 9.003204
+## 
+## 
+## [[4]]
+## An object of class "Polygons"
+## Slot "Polygons":
+## [[1]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 20.07437 41.13255
+## 
+## Slot "area":
+## [1] 2.890429
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##           [,1]     [,2]
+##  [1,] 19.43621 41.02107
+##  [2,] 19.60056 41.79666
+##  [3,] 19.36777 41.84900
+##  [4,] 19.64583 42.61805
+##  [5,] 20.07142 42.56091
+##  [6,] 20.58964 41.88219
+##  [7,] 20.49278 41.33111
+##  [8,] 20.82111 40.90888
+##  [9,] 20.98349 40.85589
+## [10,] 20.67194 40.09805
+## [11,] 20.01003 39.69120
+## [12,] 19.86305 40.03972
+## [13,] 19.28861 40.41750
+## [14,] 19.47861 40.35027
+## [15,] 19.43621 41.02107
+## 
+## 
+## 
+## Slot "plotOrder":
+## [1] 1
+## 
+## Slot "labpt":
+## [1] 20.07437 41.13255
+## 
+## Slot "ID":
+## [1] "3"
+## 
+## Slot "area":
+## [1] 2.890429
+## 
+## 
+## [[5]]
+## An object of class "Polygons"
+## Slot "Polygons":
+## [[1]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 44.98386 40.30433
+## 
+## Slot "area":
+## [1] 3.208623
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##           [,1]     [,2]
+##  [1,] 45.15387 41.19860
+##  [2,] 46.00194 40.22555
+##  [3,] 45.59582 39.97804
+##  [4,] 46.54138 39.56444
+##  [5,] 46.54038 38.87559
+##  [6,] 46.17825 38.84115
+##  [7,] 45.81999 39.54972
+##  [8,] 45.08332 39.76805
+##  [9,] 44.77886 39.70638
+## [10,] 44.34722 40.02389
+## [11,] 43.65750 40.10860
+## [12,] 43.75194 40.74000
+## [13,] 43.46077 41.11296
+## [14,] 45.02294 41.29705
+## [15,] 45.15387 41.19860
+## 
+## 
+## [[2]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 45.53453 40.63508
+## 
+## Slot "area":
+## [1] 0.001693513
+## 
+## Slot "hole":
+## [1] TRUE
+## 
+## Slot "ringDir":
+## [1] -1
+## 
+## Slot "coords":
+##          [,1]     [,2]
+## [1,] 45.57305 40.63249
+## [2,] 45.51749 40.66554
+## [3,] 45.51305 40.60722
+## [4,] 45.57305 40.63249
+## 
+## 
+## [[3]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 45.01879 41.05240
+## 
+## Slot "area":
+## [1] 0.0009946189
+## 
+## Slot "hole":
+## [1] TRUE
+## 
+## Slot "ringDir":
+## [1] -1
+## 
+## Slot "coords":
+##          [,1]     [,2]
+## [1,] 45.00999 41.03305
+## [2,] 45.04527 41.03527
+## [3,] 45.00111 41.08888
+## [4,] 45.00999 41.03305
+## 
+## 
+## [[4]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 45.22342 40.98129
+## 
+## Slot "area":
+## [1] 0.0003603638
+## 
+## Slot "hole":
+## [1] TRUE
+## 
+## Slot "ringDir":
+## [1] -1
+## 
+## Slot "coords":
+##          [,1]     [,2]
+## [1,] 45.19582 40.99777
+## [2,] 45.22916 40.96915
+## [3,] 45.24527 40.97694
+## [4,] 45.19582 40.99777
+## 
+## 
+## 
+## Slot "plotOrder":
+## [1] 1 2 3 4
+## 
+## Slot "labpt":
+## [1] 44.98386 40.30433
+## 
+## Slot "ID":
+## [1] "4"
+## 
+## Slot "area":
+## [1] 3.208623
+## 
+## 
+## [[6]]
+## An object of class "Polygons"
+## Slot "Polygons":
+## [[1]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1]  17.55246 -12.35038
+## 
+## Slot "area":
+## [1] 103.8622
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##           [,1]       [,2]
+##  [1,] 13.99750  -5.848612
+##  [2,] 16.57972  -5.900833
+##  [3,] 16.94167  -7.198610
+##  [4,] 17.62417  -8.098057
+##  [5,] 19.37306  -7.996111
+##  [6,] 19.53895  -6.996614
+##  [7,] 20.62975  -6.913881
+##  [8,] 20.54872  -7.283615
+##  [9,] 21.78296  -7.280842
+## [10,] 21.79056  -9.405556
+## [11,] 22.31222 -10.364445
+## [12,] 22.25389 -11.209723
+## [13,] 23.98621 -10.870461
+## [14,] 24.02056 -13.006390
+## [15,] 21.99833 -13.004168
+## [16,] 22.00015 -16.171661
+## [17,] 23.47611 -17.625835
+## [18,] 23.28472 -17.662502
+## [19,] 20.85417 -18.016392
+## [20,] 18.91583 -17.815556
+## [21,] 18.45154 -17.389835
+## [22,] 13.99322 -17.423946
+## [23,] 13.16055 -16.952778
+## [24,] 11.75278 -17.254833
+## [25,] 11.82083 -16.503056
+## [26,] 11.81083 -15.993057
+## [27,] 11.73139 -15.846668
+## [28,] 12.50972 -13.425280
+## [29,] 13.79250 -11.791668
+## [30,] 13.77361 -10.684723
+## [31,] 12.98445  -9.087502
+## [32,] 13.39139  -8.387222
+## [33,] 12.24500  -6.098055
+## [34,] 13.17888  -5.856329
+## [35,] 13.99750  -5.848612
+## 
+## 
+## [[2]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1] 12.469108 -5.056746
+## 
+## Slot "area":
+## [1] 0.615941
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##          [,1]      [,2]
+## [1,] 13.08889 -4.662500
+## [2,] 12.56555 -5.025555
+## [3,] 12.52667 -5.724167
+## [4,] 12.21455 -5.768555
+## [5,] 12.02613 -5.014996
+## [6,] 12.77905 -4.388990
+## [7,] 13.09139 -4.633055
+## [8,] 13.08889 -4.662500
+## 
+## 
+## [[3]]
+## An object of class "Polygon"
+## Slot "labpt":
+## [1]  11.73981 -16.69852
+## 
+## Slot "area":
+## [1] 0.001240163
+## 
+## Slot "hole":
+## [1] FALSE
+## 
+## Slot "ringDir":
+## [1] 1
+## 
+## Slot "coords":
+##          [,1]      [,2]
+## [1,] 11.75083 -16.75528
+## [2,] 11.69361 -16.53556
+## [3,] 11.77500 -16.80473
+## [4,] 11.75083 -16.75528
+## 
+## 
+## 
+## Slot "plotOrder":
+## [1] 1 2 3
+## 
+## Slot "labpt":
+## [1]  17.55246 -12.35038
+## 
+## Slot "ID":
+## [1] "5"
+## 
+## Slot "area":
+## [1] 104.4794
+## 
+## 
+## 
+## Slot "plotOrder":
+## [1] 2 6 3 5 4 1
+## 
+## Slot "bbox":
+##         min      max
+## x -61.88722 50.37499
+## y -18.01639 42.61805
+## 
+## Slot "proj4string":
+## CRS arguments:
+##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+```
+
+---
+As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
+
+```r
+library(spdplyr)
+pkmng_countries
+```
+
+```
+## class       : SpatialPolygonsDataFrame 
+## features    : 246 
+## extent      : -180, 180, -90, 83.57027  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## variables   : 12
+## # A tibble: 246 x 12
+##    FIPS  ISO2  ISO3     UN NAME    AREA POP2005 REGION SUBREGI     LON
+##    &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;
+##  1 AC    AG    ATG      28 Anti~     44  8.30e4     19      29  -61.8 
+##  2 AG    DZ    DZA      12 Alge~ 238174  3.29e7      2      15    2.63
+##  3 AJ    AZ    AZE      31 Azer~   8260  8.35e6    142     145   47.4 
+##  4 AL    AL    ALB       8 Alba~   2740  3.15e6    150      39   20.1 
+##  5 AM    AM    ARM      51 Arme~   2820  3.02e6    142     145   44.6 
+##  6 AO    AO    AGO      24 Ango~ 124670  1.61e7      2      17   17.5 
+##  7 AQ    AS    ASM      16 Amer~     20  6.41e4      9      61 -171.  
+##  8 AR    AR    ARG      32 Arge~ 273669  3.87e7     19       5  -65.2 
+##  9 AS    AU    AUS      36 Aust~ 768230  2.03e7      9      53  136.  
+## 10 BA    BH    BHR      48 Bahr~     71  7.25e5    142     145   50.6 
+## # ... with 236 more rows, and 2 more variables: LAT &lt;dbl&gt;,
+## #   pkmn_rc &lt;int&gt;
+```
+
+---
+With this package, you can use tidyverse functions to manipulate your spatial data:
+
+```r
+#filter out all countries without any Pokemon sightings, and let's rename the column while we're at it:
+pkmng_countries %&gt;%
+  filter(pkmn_rc &gt; 0) %&gt;%
+  rename(Country = NAME)
+```
+
+```
+## class       : SpatialPolygonsDataFrame 
+## features    : 72 
+## extent      : -179.999, 179.999, -55.9175, 83.10942  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## variables   : 12
+## # A tibble: 72 x 12
+##    FIPS  ISO2  ISO3     UN Country   AREA POP2005 REGION SUBREGI
+##    &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;int&gt;
+##  1 AO    AO    AGO      24 Angola  124670  1.61e7      2      17
+##  2 AR    AR    ARG      32 Argent~ 273669  3.87e7     19       5
+##  3 AS    AU    AUS      36 Austra~ 768230  2.03e7      9      53
+##  4 BK    BA    BIH      70 Bosnia~   5120  3.92e6    150      39
+##  5 BM    MM    MMR     104 Burma    65755  4.80e7    142      35
+##  6 BR    BR    BRA      76 Brazil  845942  1.87e8     19       5
+##  7 BX    BN    BRN      96 Brunei~    527  3.74e5    142      35
+##  8 CA    CA    CAN     124 Canada  909351  3.23e7     19      21
+##  9 CB    KH    KHM     116 Cambod~  17652  1.40e7    142      35
+## 10 CI    CL    CHL     152 Chile    74880  1.63e7     19       5
+## # ... with 62 more rows, and 3 more variables: LON &lt;dbl&gt;, LAT &lt;dbl&gt;,
+## #   pkmn_rc &lt;int&gt;
+```
+
+---
+Now let's load our point data:
+
+```r
+pkmng_points &lt;- read_csv("Data/pkmng_points.csv")
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   .default = col_logical(),
+##   pokemonId = col_double(),
+##   latitude = col_double(),
+##   longitude = col_double(),
+##   appearedLocalTime = col_datetime(format = ""),
+##   cellId_90m = col_double(),
+##   cellId_180m = col_double(),
+##   cellId_370m = col_double(),
+##   cellId_730m = col_double(),
+##   cellId_1460m = col_double(),
+##   cellId_2920m = col_double(),
+##   cellId_5850m = col_double(),
+##   appearedTimeOfDay = col_character(),
+##   appearedHour = col_double(),
+##   appearedMinute = col_double(),
+##   appearedDayOfWeek = col_character(),
+##   appearedDay = col_double(),
+##   appearedMonth = col_double(),
+##   appearedYear = col_double(),
+##   terrainType = col_double(),
+##   city = col_character()
+##   # ... with 19 more columns
+## )
+```
+
+```
+## See spec(...) for full column specifications.
+```
+
+```r
+pkmng_points
+```
+
+```
+## # A tibble: 29,602 x 207
+##    pokemonId latitude longitude appearedLocalTime   cellId_90m
+##        &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;                   &lt;dbl&gt;
+##  1        16     53.7    -0.443 2016-09-04 09:31:44    5.22e18
+##  2        60     46.0     8.96  2016-09-06 07:57:06    5.15e18
+##  3        19     46.2    15.3   2016-09-04 08:33:55    5.14e18
+##  4        16     50.7    14.5   2016-09-04 09:23:24    5.12e18
+##  5        23     44.5    11.3   2016-09-04 16:02:16    5.15e18
+##  6       120     50.2    14.7   2016-09-03 15:51:17    5.12e18
+##  7        46     33.6   -84.3   2016-09-07 01:05:11    9.87e18
+##  8        10     46.0     8.95  2016-09-06 06:22:14    5.15e18
+##  9        27     33.9  -118.    2016-09-06 05:13:44    9.28e18
+## 10        23     34.3  -119.    2016-09-06 14:49:44    9.29e18
+## # ... with 29,592 more rows, and 202 more variables:
+## #   cellId_180m &lt;dbl&gt;, cellId_370m &lt;dbl&gt;, cellId_730m &lt;dbl&gt;,
+## #   cellId_1460m &lt;dbl&gt;, cellId_2920m &lt;dbl&gt;, cellId_5850m &lt;dbl&gt;,
+## #   appearedTimeOfDay &lt;chr&gt;, appearedHour &lt;dbl&gt;,
+## #   appearedMinute &lt;dbl&gt;, appearedDayOfWeek &lt;chr&gt;, appearedDay &lt;dbl&gt;,
+## #   appearedMonth &lt;dbl&gt;, appearedYear &lt;dbl&gt;, terrainType &lt;dbl&gt;,
+## #   closeToWater &lt;lgl&gt;, city &lt;chr&gt;, continent &lt;chr&gt;, weather &lt;chr&gt;,
+## #   temperature &lt;dbl&gt;, windSpeed &lt;dbl&gt;, windBearing &lt;dbl&gt;,
+## #   pressure &lt;dbl&gt;, weatherIcon &lt;chr&gt;, sunriseMinutesMidnight &lt;dbl&gt;,
+## #   sunriseHour &lt;dbl&gt;, sunriseMinute &lt;dbl&gt;,
+## #   sunriseMinutesSince &lt;dbl&gt;, sunsetMinutesMidnight &lt;dbl&gt;,
+## #   sunsetHour &lt;dbl&gt;, sunsetMinute &lt;dbl&gt;, sunsetMinutesBefore &lt;dbl&gt;,
+## #   population_density &lt;dbl&gt;, urban &lt;lgl&gt;, suburban &lt;lgl&gt;,
+## #   midurban &lt;lgl&gt;, rural &lt;lgl&gt;, gymDistanceKm &lt;dbl&gt;,
+## #   gymIn100m &lt;lgl&gt;, gymIn250m &lt;lgl&gt;, gymIn500m &lt;lgl&gt;,
+## #   gymIn1000m &lt;lgl&gt;, gymIn2500m &lt;lgl&gt;, gymIn5000m &lt;lgl&gt;,
+## #   pokestopDistanceKm &lt;dbl&gt;, pokestopIn100m &lt;lgl&gt;,
+## #   pokestopIn250m &lt;lgl&gt;, pokestopIn500m &lt;lgl&gt;,
+## #   pokestopIn1000m &lt;lgl&gt;, pokestopIn2500m &lt;lgl&gt;,
+## #   pokestopIn5000m &lt;lgl&gt;, cooc_1 &lt;lgl&gt;, cooc_2 &lt;lgl&gt;, cooc_3 &lt;lgl&gt;,
+## #   cooc_4 &lt;lgl&gt;, cooc_5 &lt;lgl&gt;, cooc_6 &lt;lgl&gt;, cooc_7 &lt;lgl&gt;,
+## #   cooc_8 &lt;lgl&gt;, cooc_9 &lt;lgl&gt;, cooc_10 &lt;lgl&gt;, cooc_11 &lt;lgl&gt;,
+## #   cooc_12 &lt;lgl&gt;, cooc_13 &lt;lgl&gt;, cooc_14 &lt;lgl&gt;, cooc_15 &lt;lgl&gt;,
+## #   cooc_16 &lt;lgl&gt;, cooc_17 &lt;lgl&gt;, cooc_18 &lt;lgl&gt;, cooc_19 &lt;lgl&gt;,
+## #   cooc_20 &lt;lgl&gt;, cooc_21 &lt;lgl&gt;, cooc_22 &lt;lgl&gt;, cooc_23 &lt;lgl&gt;,
+## #   cooc_24 &lt;lgl&gt;, cooc_25 &lt;lgl&gt;, cooc_26 &lt;lgl&gt;, cooc_27 &lt;lgl&gt;,
+## #   cooc_28 &lt;lgl&gt;, cooc_29 &lt;lgl&gt;, cooc_30 &lt;lgl&gt;, cooc_31 &lt;lgl&gt;,
+## #   cooc_32 &lt;lgl&gt;, cooc_33 &lt;lgl&gt;, cooc_34 &lt;lgl&gt;, cooc_35 &lt;lgl&gt;,
+## #   cooc_36 &lt;lgl&gt;, cooc_37 &lt;lgl&gt;, cooc_38 &lt;lgl&gt;, cooc_39 &lt;lgl&gt;,
+## #   cooc_40 &lt;lgl&gt;, cooc_41 &lt;lgl&gt;, cooc_42 &lt;lgl&gt;, cooc_43 &lt;lgl&gt;,
+## #   cooc_44 &lt;lgl&gt;, cooc_45 &lt;lgl&gt;, cooc_46 &lt;lgl&gt;, cooc_47 &lt;lgl&gt;,
+## #   cooc_48 &lt;lgl&gt;, cooc_49 &lt;lgl&gt;, cooc_50 &lt;lgl&gt;, ...
+```
+
+---
+We are going to create a shapefile from this table.
+
+
+```r
+library(sp)
+xy &lt;- tibble(longitude = pkmng_points$longitude,
+             latitude = pkmng_points$latitude)
+pkmng_points &lt;- SpatialPointsDataFrame(coords = xy,
+                                      data = pkmng_points)
+```
+
+---
+# GEOJSON
+
+
+```r
+library(geojsonio)
+library(rmapshaper)
+pkmng_countries_json &lt;- geojson_json(pkmng_countries) #this can be VERY time-consuming
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
