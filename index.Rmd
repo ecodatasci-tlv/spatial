@@ -14,10 +14,11 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(knitr)
-library(tidyverse)
-library(rgdal)
-library(sp)
+if(!require(pacman))install.packages("pacman")
+pacman::p_load(knitr)
+pacman::p_load(tidyverse)
+pacman::p_load(rgdal)
+pacman::p_load(sp)
 
 countries <- readOGR("Data", layer = "countries")
 
@@ -55,67 +56,106 @@ class: inverse, middle, center
 
 
 
-*https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
+https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
   
 ---
 class: inverse, middle, center
 
-# Vector data
+# **Vector data**
+
+Equivalent to a spreadsheet with a geometry column that describs how to plot the data that represents that feature
 ---
 
-### Polygons 
+### **Polygons**
 Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
 
 ---
 
-### Lines
+### **Lines**
 One dimentional and are used to only to measure length
 ---
 
-### Points
+### **Points**
 Used to represent nonadjucent features 
 
----
+--
+# File type
 
-IMPORTANT: In species distribution polygons are usually an over representation of the real distribtion, while point data are an under representation.
+* Polygon and lines come in a shapefile format, point usually are stored in XY table (a spreadsheet with latitude and longitude columns)
+
+* A shapefile is structured from 4 main files: 
+ - **shp** - the geometry of each feature
+ - **dbf** - a dBase file with the attribute data for each feature (can be opened in excel; stores the metadata of each feature)
+ - **prj** - The projection file
+ - **shx** - a spatial index that helps a GIS program find the features in the .shp file quickly
+
+**IMPORTANT:** each shapefile can only store one type of geometry - point/ polygon/ line
 ---
 class: inverse, middle, center
 
-# Raster data
+# **Raster data**
 
-Cell-based data, represents surfaces. Each cell 
+Cell-based data, represents surfaces. Each cell represents a value
 ---
+## **Two main types**
 
-### Continuous 
+### **Continuous**
 Example: temperature, elevation, etc.
 
-### Discrete
+### **Discrete**
 Example: population density, species richenss, etc.
-
 
 ---
 
 Rasters have three types of datasets: 
 
-### thematic
+### **Thematic**
 Used to represent discrete data, such as soil type or land use
 ADD A PICTURE
 ---
-### spectral
+### **Spectral**
 Aerial or setalite imagery
 ADD A PICTURE
 ---
-### Surface
+### **Surface**
 Represents continuous changes across a landscape (for example elevation)
 ADD A PICTURE
+---
+
+class: center
+
+# Vector and raster comparison
+```{r echo=FALSE}
+pacman::p_load(flextable,officer)
+my_table<- data.frame(Data_type = c(rep("Vector",3),rep("Raster",3)),Pros = c("High geographical accuracy",
+"Follows topology rules which increases integrity",
+"Used for measurements of proximity","Very good for representing remote sensing data","Performs well with map algebra",""),Cons = c("Doesn’t work well with continuous data","Processing intensive due to topology checks","","Less aesthetic pleasing","Lacks attribute data flexibility
+","Data size increases with the increase in resolution"))
+
+
+myft <- flextable(
+  head(my_table), 
+  col_keys = c("Data_type", "Pros", "Cons"))
+
+myft<- bold(merge_v(theme_vanilla(myft),j="Data_type"),j = "Data_type")
+align(width(fontsize(x = myft,size = 20,part = "all"),width = 3),align = 'left',part = 'all')
+
+```
 
 ---
+class: center
 # Importing Spatial Data
+.center[
+.img-small[
+![](pres_pictures/dims.jpeg)
+]]
+
+---
 
 Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
 
 ```{r rgdal, message = F}
-library(rgdal)
+pacman::p_load(rgdal)
 pkmng_countries <- readOGR(dsn = "Data",
                            layer = "pkmng_polygons")
 ```
@@ -128,7 +168,7 @@ head(pkmng_countries)
 ---
 As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
 ```{r spdplyr}
-library(spdplyr)
+pacman::p_load(spdplyr)
 pkmng_countries
 ```
 
@@ -152,7 +192,7 @@ pkmng_points_dat
 We are going to create a shapefile from this table.
 
 ```{r points 2}
-library(sp)
+pacman::p_load(sp)
 xy <- tibble(longitude = pkmng_points_dat$longitude,
              latitude = pkmng_points_dat$latitude)
 pkmng_points <- SpatialPointsDataFrame(coords = xy,
@@ -171,8 +211,8 @@ There are advantages to GeoJSON, including reduced file sizes. Compare:
 
 ---
 ```{r geojson}
-library(geojsonio)
-library(rmapshaper)
+pacman::p_load(geojsonio)
+pacman::p_load(rmapshaper)
 
 #we now convert our ESRI shapefile (a SpatialPoylgonsDataFrame object) to GeoJSON format:
 pkmng_countries_json <- geojson_json(pkmng_countries) #this can be VERY time-consuming
@@ -186,7 +226,7 @@ Read more about GeoJSON here: https://macwright.org/2015/03/23/geojson-second-bi
 # Rasters
 Finally, importing rasters is easily done with the raster package:
 ```{r raster, message = F, warnings = F}
-library(raster)
+pacman::p_load(raster)
 pkmng_raster <- raster("Data/pkmng_raster.tif")
 
 pkmng_raster
@@ -325,7 +365,74 @@ raster::intersect(countries_p, pkmng_raster_c)
 ```
 
 ---
-# MARIA STUFF ON SPATIAL DATA MANIPULATION
+class: center, middle
+# Different GIS tools out there
+
+.center[
+.img-small[
+![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
+]]
+---
+class: center, middle
+# Data manipulation
+
+---
+class: center, middle
+# Georeferencing
+Manipulating two vector data
+
+---
+### **Buffer points** - creating a polygon based on proximity
+**For example:** buffer all the pokemon points to 1km radious
+```{r}
+#width is in meters
+buffer_pok<- raster::buffer(pkmng_points,width = 1000)
+# plot(buffer_pok)
+```
+
+
+
+---
+### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer
+
+---
+### **Intersect** - similar to the clip tool because the extents of input features defines the output. The only exception is that it preserves attributes from all the data sets that overlap each other in the output 
+---
+### **Merge** - combines data sets that are the same data type
+---
+### **Dissolve** - The Dissolve Tool unifies boundaries based on common attribute values
+
+---
+# Spatial statistics
+Vector-Raster analysis. Allows you to calculate statistics from raster data for each feature in the vector data
+
+**For Example:** We want to calculate the temperature in each point that a pokemon was collected
+
+---
+Download and plot the mean anual temperature from the web using the getData function
+```{r}
+climate <- raster::getData('worldclim', var='bio', res=10)
+annual_prec<- climate$bio12
+plot(annual_prec)
+```
+
+---
+Now lets calculate the mean temperature in each point
+
+```{r}
+poke_annual_prec<- raster::extract(annual_prec, pkmng_points,fun = mean,na.rm=T,df=T)
+head(poke_annual_prec)
+```
+
+---
+The data has no identification of which point it belongs to. To have that we need to merge it with the points identifiers
+
+```{r}
+poke_annual_prec_final<- cbind(pkmng_points@data$pokemonId,poke_annual_prec$bio12)
+names(poke_annual_prec_final)<- c("pokemonId","annual_prec")
+head(poke_annual_prec_final)
+```
+
 
 ---
 # Spatial autocorrelation
@@ -340,7 +447,7 @@ So how do we test for spatial autocorrelation and what can we do about it?
 
 We'll use the pgirmess package:
 ```{r sp ac, message=F}
-library(pgirmess)
+pacman::p_load(pgirmess)
 
 #first we'll take a small sample of the points data, because this test is very time-consuming
 pkmng_points_dat_s <- sample_frac(pkmng_points_dat, 0.05)
@@ -396,7 +503,7 @@ Notice how the red and blue dots are clustered together, and not randomly distri
 We can use a method called GWR (Globally Weighted Regression) to account for this - basically, you calculate a regression coefficient for each datum, weighing the contribution of all data based on their spatial distance from your focal datum.
 
 ```{r gwr 4, message=F}
-library(spgwr)
+pacman::p_load(spgwr)
 GWRbandwidth <- gwr.sel(windSpeed ~
                           temperature,
                         data = pkmng_points_dat_s,

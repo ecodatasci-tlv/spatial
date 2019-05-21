@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="date" content="2019-05-21" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tabwid/tabwid.css" rel="stylesheet" />
+    <script src="libs/tabwid/tabwid.js"></script>
     <link rel="stylesheet" href="custom-fonts.css" type="text/css" />
   </head>
   <body>
@@ -38,75 +40,99 @@ class: inverse, middle, center
 
 
 
-*https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
+https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
   
 ---
 class: inverse, middle, center
 
-# Vector data
+# **Vector data**
+
+Equivalent to a spreadsheet with a geometry column that describs how to plot the data that represents that feature
 ---
 
-### Polygons 
+### **Polygons**
 Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
 
 ---
 
-### Lines
+### **Lines**
 One dimentional and are used to only to measure length
 ---
 
-### Points
+### **Points**
 Used to represent nonadjucent features 
 
----
+--
+# File type
 
-IMPORTANT: In species distribution polygons are usually an over representation of the real distribtion, while point data are an under representation.
+* Polygon and lines come in a shapefile format, point usually are stored in XY table (a spreadsheet with latitude and longitude columns)
+
+* A shapefile is structured from 4 main files: 
+ - **shp** - the geometry of each feature
+ - **dbf** - a dBase file with the attribute data for each feature (can be opened in excel; stores the metadata of each feature)
+ - **prj** - The projection file
+ - **shx** - a spatial index that helps a GIS program find the features in the .shp file quickly
+
+**IMPORTANT:** each shapefile can only store one type of geometry - point/ polygon/ line
 ---
 class: inverse, middle, center
 
-# Raster data
+# **Raster data**
 
-Cell-based data, represents surfaces. Each cell 
+Cell-based data, represents surfaces. Each cell represents a value
 ---
+## **Two main types**
 
-### Continuous 
+### **Continuous**
 Example: temperature, elevation, etc.
 
-### Discrete
+### **Discrete**
 Example: population density, species richenss, etc.
-
 
 ---
 
 Rasters have three types of datasets: 
 
-### thematic
+### **Thematic**
 Used to represent discrete data, such as soil type or land use
 ADD A PICTURE
 ---
-### spectral
+### **Spectral**
 Aerial or setalite imagery
 ADD A PICTURE
 ---
-### Surface
+### **Surface**
 Represents continuous changes across a landscape (for example elevation)
 ADD A PICTURE
+---
+
+class: center
+
+# Vector and raster comparison
+<div class="tabwid"><table style='border-collapse:collapse;'><thead><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Data_type</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Pros</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Cons</span></p></td></tr></thead><tbody><tr><td rowspan="3" style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Vector</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">High geographical accuracy</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Doesn’t work well with continuous data</span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Follows topology rules which increases integrity</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Processing intensive due to topology checks</span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Used for measurements of proximity</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;"></span></p></td></tr><tr><td rowspan="3" style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Raster</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Very good for representing remote sensing data</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Less aesthetic pleasing</span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Performs well with map algebra</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Lacks attribute data flexibility<br></span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;"></span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Data size increases with the increase in resolution</span></p></td></tr></tbody></table></div>
 
 ---
+class: center
 # Importing Spatial Data
+.center[
+.img-small[
+![](pres_pictures/dims.jpeg)
+]]
+
+---
 
 Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
 
 
 ```r
-library(rgdal)
+pacman::p_load(rgdal)
 pkmng_countries &lt;- readOGR(dsn = "Data",
                            layer = "pkmng_polygons")
 ```
 
 ```
 ## OGR data source with driver: ESRI Shapefile 
-## Source: "D:\R Projects\spatial\Data", layer: "pkmng_polygons"
+## Source: "/Users/marianovosolov/Dropbox/Studies/ecodatasci_tlv/spatial_analysis/Data", layer: "pkmng_polygons"
 ## with 246 features
 ## It has 12 fields
 ```
@@ -139,7 +165,7 @@ head(pkmng_countries)
 As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
 
 ```r
-library(spdplyr)
+pacman::p_load(spdplyr)
 pkmng_countries
 ```
 
@@ -152,17 +178,17 @@ pkmng_countries
 ## # A tibble: 246 x 12
 ##    FIPS  ISO2  ISO3     UN NAME    AREA POP2005 REGION SUBREGI     LON
 ##    &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;
-##  1 AC    AG    ATG      28 Anti~     44  8.30e4     19      29  -61.8 
-##  2 AG    DZ    DZA      12 Alge~ 238174  3.29e7      2      15    2.63
-##  3 AJ    AZ    AZE      31 Azer~   8260  8.35e6    142     145   47.4 
-##  4 AL    AL    ALB       8 Alba~   2740  3.15e6    150      39   20.1 
-##  5 AM    AM    ARM      51 Arme~   2820  3.02e6    142     145   44.6 
-##  6 AO    AO    AGO      24 Ango~ 124670  1.61e7      2      17   17.5 
-##  7 AQ    AS    ASM      16 Amer~     20  6.41e4      9      61 -171.  
-##  8 AR    AR    ARG      32 Arge~ 273669  3.87e7     19       5  -65.2 
-##  9 AS    AU    AUS      36 Aust~ 768230  2.03e7      9      53  136.  
-## 10 BA    BH    BHR      48 Bahr~     71  7.25e5    142     145   50.6 
-## # ... with 236 more rows, and 2 more variables: LAT &lt;dbl&gt;,
+##  1 AC    AG    ATG      28 Anti…     44  8.30e4     19      29  -61.8 
+##  2 AG    DZ    DZA      12 Alge… 238174  3.29e7      2      15    2.63
+##  3 AJ    AZ    AZE      31 Azer…   8260  8.35e6    142     145   47.4 
+##  4 AL    AL    ALB       8 Alba…   2740  3.15e6    150      39   20.1 
+##  5 AM    AM    ARM      51 Arme…   2820  3.02e6    142     145   44.6 
+##  6 AO    AO    AGO      24 Ango… 124670  1.61e7      2      17   17.5 
+##  7 AQ    AS    ASM      16 Amer…     20  6.41e4      9      61 -171.  
+##  8 AR    AR    ARG      32 Arge… 273669  3.87e7     19       5  -65.2 
+##  9 AS    AU    AUS      36 Aust… 768230  2.03e7      9      53  136.  
+## 10 BA    BH    BHR      48 Bahr…     71  7.25e5    142     145   50.6 
+## # … with 236 more rows, and 2 more variables: LAT &lt;dbl&gt;,
 ## #   pkmn_rc &lt;int&gt;
 ```
 
@@ -260,7 +286,7 @@ We are going to create a shapefile from this table.
 
 
 ```r
-library(sp)
+pacman::p_load(sp)
 xy &lt;- tibble(longitude = pkmng_points_dat$longitude,
              latitude = pkmng_points_dat$latitude)
 pkmng_points &lt;- SpatialPointsDataFrame(coords = xy,
@@ -272,11 +298,11 @@ pkmng_points
 ## class       : SpatialPointsDataFrame 
 ## features    : 29602 
 ## extent      : -158.0198, 175.6162, -42.9845, 68.43698  (xmin, xmax, ymin, ymax)
-## crs         : NA 
+## coord. ref. : NA 
 ## variables   : 207
-## names       : pokemonId,   latitude,   longitude, appearedLocalTime,           cellId_90m,          cellId_180m,          cellId_370m,         cellId_730m,         cellId_1460m,         cellId_2920m,         cellId_5850m, appearedTimeOfDay, appearedHour, appearedMinute, appearedDayOfWeek, ... 
-## min values  :         1, -42.984504, -158.019758,        1472853011,    43172735374852096,    43172735576178688,    43172735307743232,   43172732086517760,    43172719201615872,    43172667662008320,    43172598942531584,         afternoon,            0,              0,         dummy_day, ... 
-## max values  :       149,   68.43698,  175.616223,        1473306687, 12280882455157669888, 12280882455224778752, 12280882455493214208, 1.2280882456567e+19, 12280882443682054144, 12280882495221661696, 12280882701380091904,             night,           23,             59,         Wednesday, ...
+## names       : pokemonId,   latitude,   longitude,   appearedLocalTime,   cellId_90m,  cellId_180m,  cellId_370m,  cellId_730m, cellId_1460m, cellId_2920m, cellId_5850m, appearedTimeOfDay, appearedHour, appearedMinute, appearedDayOfWeek, ... 
+## min values  :         1,   1.282526,    0.000046, 2016-09-02 21:50:11, 1.008879e+19, 1.008879e+19, 1.008879e+19, 1.008879e+19, 1.008879e+19, 1.008879e+19, 1.008879e+19,         afternoon,            0,              0,         dummy_day, ... 
+## max values  :       149, -42.984504, -158.019758, 2016-09-08 03:51:27, 9.937698e+18, 9.937698e+18, 9.937698e+18, 9.937698e+18, 9.937698e+18, 9.937698e+18, 9.937698e+18,             night,           23,             59,         Wednesday, ...
 ```
 
 ---
@@ -291,8 +317,8 @@ There are advantages to GeoJSON, including reduced file sizes. Compare:
 ---
 
 ```r
-library(geojsonio)
-library(rmapshaper)
+pacman::p_load(geojsonio)
+pacman::p_load(rmapshaper)
 
 #we now convert our ESRI shapefile (a SpatialPoylgonsDataFrame object) to GeoJSON format:
 pkmng_countries_json &lt;- geojson_json(pkmng_countries) #this can be VERY time-consuming
@@ -307,21 +333,21 @@ Read more about GeoJSON here: https://macwright.org/2015/03/23/geojson-second-bi
 Finally, importing rasters is easily done with the raster package:
 
 ```r
-library(raster)
+pacman::p_load(raster)
 pkmng_raster &lt;- raster("Data/pkmng_raster.tif")
 
 pkmng_raster
 ```
 
 ```
-## class      : RasterLayer 
-## dimensions : 85, 180, 15300  (nrow, ncol, ncell)
-## resolution : 2, 2  (x, y)
-## extent     : -180, 180, -86.42973, 83.57027  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## source     : D:/R Projects/spatial/Data/pkmng_raster.tif 
-## names      : pkmng_raster 
-## values     : 1, 116  (min, max)
+## class       : RasterLayer 
+## dimensions  : 87, 180, 15660  (nrow, ncol, ncell)
+## resolution  : 2, 2  (x, y)
+## extent      : -180, 180, -90.42973, 83.57027  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## data source : /Users/marianovosolov/Dropbox/Studies/ecodatasci_tlv/spatial_analysis/Data/pkmng_raster.tif 
+## names       : pkmng_raster 
+## values      : 0, 9.535896  (min, max)
 ```
 
 ---
@@ -557,7 +583,100 @@ raster::intersect(countries_p, pkmng_raster_c)
 ```
 
 ---
-# MARIA STUFF ON SPATIAL DATA MANIPULATION
+class: center, middle
+# Different GIS tools out there
+
+.center[
+.img-small[
+![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
+]]
+---
+class: center, middle
+# Data manipulation
+
+---
+class: center, middle
+# Georeferencing
+Manipulating two vector data
+
+---
+### **Buffer points** - creating a polygon based on proximity
+**For example:** buffer all the pokemon points to 1km radious
+
+```r
+#width is in meters
+buffer_pok&lt;- raster::buffer(pkmng_points,width = 1000)
+# plot(buffer_pok)
+```
+
+
+
+---
+### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer
+
+---
+### **Intersect** - similar to the clip tool because the extents of input features defines the output. The only exception is that it preserves attributes from all the data sets that overlap each other in the output 
+---
+### **Merge** - combines data sets that are the same data type
+---
+### **Dissolve** - The Dissolve Tool unifies boundaries based on common attribute values
+
+---
+# Spatial statistics
+Vector-Raster analysis. Allows you to calculate statistics from raster data for each feature in the vector data
+
+**For Example:** We want to calculate the temperature in each point that a pokemon was collected
+
+---
+Download and plot the mean anual temperature from the web using the getData function
+
+```r
+climate &lt;- raster::getData('worldclim', var='bio', res=10)
+annual_prec&lt;- climate$bio12
+plot(annual_prec)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+Now lets calculate the mean temperature in each point
+
+
+```r
+poke_annual_prec&lt;- raster::extract(annual_prec, pkmng_points,fun = mean,na.rm=T,df=T)
+head(poke_annual_prec)
+```
+
+```
+##   ID bio12
+## 1  1   663
+## 2  2  1326
+## 3  3  1095
+## 4  4   585
+## 5  5   792
+## 6  6   492
+```
+
+---
+The data has no identification of which point it belongs to. To have that we need to merge it with the points identifiers
+
+
+```r
+poke_annual_prec_final&lt;- cbind(pkmng_points@data$pokemonId,poke_annual_prec$bio12)
+names(poke_annual_prec_final)&lt;- c("pokemonId","annual_prec")
+head(poke_annual_prec_final)
+```
+
+```
+##      [,1] [,2]
+## [1,]   16  663
+## [2,]   60 1326
+## [3,]   19 1095
+## [4,]   16  585
+## [5,]   23  792
+## [6,]  120  492
+```
+
 
 ---
 # Spatial autocorrelation
@@ -573,7 +692,7 @@ So how do we test for spatial autocorrelation and what can we do about it?
 We'll use the pgirmess package:
 
 ```r
-library(pgirmess)
+pacman::p_load(pgirmess)
 
 #first we'll take a small sample of the points data, because this test is very time-consuming
 pkmng_points_dat_s &lt;- sample_frac(pkmng_points_dat, 0.05)
@@ -659,18 +778,7 @@ We can use a method called GWR (Globally Weighted Regression) to account for thi
 
 
 ```r
-library(spgwr)
-```
-
-```
-## Warning: package 'spgwr' was built under R version 3.5.3
-```
-
-```
-## Warning: package 'spData' was built under R version 3.5.2
-```
-
-```r
+pacman::p_load(spgwr)
 GWRbandwidth &lt;- gwr.sel(windSpeed ~
                           temperature,
                         data = pkmng_points_dat_s,
