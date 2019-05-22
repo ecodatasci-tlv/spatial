@@ -46,7 +46,7 @@ theme_set(theme_minimal() +
 * Comparison of different GIS tools out there
 * Spatial data manipulation
 * Intro to spatial analysis
-* Visualizations (if we have time)
+
 
 ---
 class: inverse, middle, center
@@ -59,35 +59,42 @@ class: inverse, middle, center
 https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
 ]  
 ---
+.center[
+.img-med[
+![](pres_pictures/Screenshot 2019-05-22 13.08.45.png)
+]]
+---
 class: middle, center
 
 # **Vector data**
 
-Equivalent to a spreadsheet with a geometry column that describs how to plot the data that represents that feature
+Equivalent to a spreadsheet with a geometry column that describes how to plot the data that represents that feature
 
----
-### **Polygons**
-Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
-.center[
-.img-small[
-![](pres_pictures/polygon-vector.png)
-]]
----
-
-### **Lines**
-One dimentional and are used to only to measure length
-.center[
-.img-small[
-![](pres_pictures/line-vector.png)
-]]
 ---
 
 ### **Points**
-Used to represent nonadjucent features 
+Used to represent nonadjacent features 
 .center[
 .img-small[
 ![](pres_pictures/points-vector.png)
 ]]
+---
+
+### **Lines**
+One dimensional and are only used to measure length
+.center[
+.img-small[
+![](pres_pictures/line-vector.png)
+]]
+
+---
+### **Polygons**
+Two dimensional and are used for measurement of area and parameters of geographical feature. 
+.center[
+.img-small[
+![](pres_pictures/polygon-vector.png)
+]]
+
 
 ---
 
@@ -110,17 +117,15 @@ class: middle, center
 Cell-based data, represents surfaces. Each cell represents a value
 ---
 
-## **Two main types**
+## **Raster can represent two types of data**
 
-### **Continuous**
-Example: temperature, elevation, etc.
+### **Continuous** - temperature, elevation, etc.
 
-### **Discrete**
-Example: population density, species richenss, etc.
+### **Discrete** - population density, species richness, etc.
 
 ---
 
-Rasters have three types of datasets: 
+# **Rasters have three types of datasets:**
 
 ### **Thematic**
 Used to represent discrete data, such as soil type or land use
@@ -130,7 +135,7 @@ Used to represent discrete data, such as soil type or land use
 ]]
 ---
 ### **Spectral**
-Aerial or setalite imagery
+Aerial or setalite imagery used during digital map generation
 .center[
 .img-med[
 ![](pres_pictures/mx.jpg)
@@ -326,14 +331,14 @@ pkmng_points_p
 Why are projections so important?
 
 Here's our points mapped on top of a shapefile of countries:
-```{r map, message=F}
+```{r map, message=F, fig.height=5, fig.width=9}
 plot(countries, axes = T)
 plot(pkmng_points, add = T, pch = 1, col = "red")
 ```
 
 ---
 Now, when the projections do not match:
-```{r map 2, messages=F}
+```{r map 2, messages=F, fig.height=5, fig.width=9}
 countries_p <- spTransform(countries,
                               crs("+proj=laea  +lat_0=0 +lon_0=0"))
 plot(countries_p, axes = T)
@@ -342,7 +347,7 @@ plot(pkmng_points, add = T, pch = 1, col = "red")
 
 ---
 Whereas matching projections give us all the coordinates in the right place:
-```{r map 3, message=F}
+```{r map 3, message=F, fig.height=5, fig.width=9}
 plot(countries_p, axes = T)
 plot(pkmng_points_p, add = T, pch = 1, col = "red")
 ```
@@ -374,7 +379,7 @@ pkmng_raster_c <- crop(pkmng_raster,
 ```
 
 ---
-```{r extent 4, message=F}
+```{r extent 4, message=F, fig.height=5, fig.width=9}
 plot(pkmng_raster)
 plot(pkmng_raster_c, add = T, col = "red")
 ```
@@ -391,33 +396,25 @@ raster::intersect(countries_p, pkmng_raster_c)
 
 ---
 class: center, middle
-# Different GIS tools out there
-
-.center[
-.img-med[
-![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
-]]
----
-class: center, middle
 # Data manipulation
 
 ---
 class: center, middle
-# Georeferencing
-Manipulating two vector data
+# Geoprocessing
+a GIS operation used to manipulate spatial data. A typical geoprocessing operation takes an input dataset, performs an operation on that dataset, and returns the result of the operation as an output dataset
 
 ---
 ### **Buffer points** - creating a polygon based on proximity
-**For example:** buffer some of the pokemon points to 100km radious
+**For example:** buffer some of the pokemon points to 100km radius
 We'll first subset the data to have less points
-```{r}
+```{r fig.height=6, fig.width=10}
 sub_pkmng_p<- subset(pkmng_points,pokemonId %in%c(8:10))
 plot(countries)
 plot(sub_pkmng_p,add = T, col = "red")
 ```
 ---
 Now we'll buffer the points in a 100km radius to make them into polygons
-```{r}
+```{r fig.height=6, fig.width=10}
 buffer_pkmng_points<- raster::buffer(sub_pkmng_p,width = 100000)
 plot(countries)
 plot(buffer_pkmng_points,add = T, col = "red")
@@ -426,9 +423,9 @@ plot(buffer_pkmng_points,add = T, col = "red")
 ---
 ### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer. 
 
-There are a few ways of clipping polygons in R, we will look at using the rgdal package. The latter is more integrated with tidyverse
+There are a few ways of clipping polygons in R, we will look at using the rgdal package. 
 ---
-Lets clip the buffered points to to have the ones that fall in Italy and to fit the bounderies of the Italian coastline.
+Lets clip the buffered points to to have the ones that fall in Italy and to fit the boundaries of the Italian coastline.
 
 First, well filter the countries shapefile to have a shapefile of Italy
 ```{r}
@@ -479,8 +476,8 @@ Vector-Raster analysis. Allows you to calculate statistics from raster data for 
 **For Example:** We want to calculate the temperature in each point that a pokemon was collected
 
 ---
-Download and plot the mean anual temperature from the web using the getData function
-```{r}
+Download and plot the mean annual temperature from the web using the getData function
+```{r fig.height=6, fig.width=10}
 climate <- raster::getData('worldclim', var='bio', res=10)
 annual_prec<- climate$bio12
 plot(annual_prec)
@@ -544,7 +541,7 @@ plot(pgi.cor2)
 
 ---
 ## Dealing with spatial autocorrelation
-There are various methods to "eliminate" spatial autocorrelation for hypothesis testing and statiscal inference. All are flawed, each in their own way.
+There are various methods to "eliminate" spatial autocorrelation for hypothesis testing and statistical inference. All are flawed, each in their own way.
 
 We won't talk about them here, but you can read more in the literature:
 https://onlinelibrary.wiley.com/doi/10.1111/j.2007.0906-7590.05171.x
@@ -552,7 +549,7 @@ https://onlinelibrary.wiley.com/doi/10.1111/jbi.12953
 
 ---
 # Spatial non-stationarity
-Often, relationships between variables can shift in space. So global coefficients of models can be very poor at describing the actual behaviour of your data.
+Often, relationships between variables can shift in space. So global coefficients of models can be very poor at describing the actual behavior of your data.
 
 For example, let's look for a relationship between wind speed and temperature in our Pokemon Go sightings data:
 .small[
@@ -645,13 +642,21 @@ gwr.map <- ggplot(data = pkmng_points_dat_s,
 ---
 And see how the regression coefficients change with space - blue for positive coefficients and red for negative ones:
 
-```{r gwr 8, message=F}
+```{r gwr 8, message=F,fig.width=14}
 gwr.map
 ```
+---
+class: center, middle
+# Different GIS tools out there
 
+.center[
+.img-med[
+![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
+]]
 ---
 # TAKE HOME MESSAGES
 
 * Be mindful of projections!
 * Be mindful of spatial autocorrelation!
 * Visualize spatial patterns!
+* No one tool that fits them all

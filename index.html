@@ -30,7 +30,7 @@ class: center, middle, inverse, title-slide
 * Comparison of different GIS tools out there
 * Spatial data manipulation
 * Intro to spatial analysis
-* Visualizations (if we have time)
+
 
 ---
 class: inverse, middle, center
@@ -43,35 +43,42 @@ class: inverse, middle, center
 https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
 ]  
 ---
+.center[
+.img-med[
+![](pres_pictures/Screenshot 2019-05-22 13.08.45.png)
+]]
+---
 class: middle, center
 
 # **Vector data**
 
-Equivalent to a spreadsheet with a geometry column that describs how to plot the data that represents that feature
+Equivalent to a spreadsheet with a geometry column that describes how to plot the data that represents that feature
 
----
-### **Polygons**
-Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
-.center[
-.img-small[
-![](pres_pictures/polygon-vector.png)
-]]
----
-
-### **Lines**
-One dimentional and are used to only to measure length
-.center[
-.img-small[
-![](pres_pictures/line-vector.png)
-]]
 ---
 
 ### **Points**
-Used to represent nonadjucent features 
+Used to represent nonadjacent features 
 .center[
 .img-small[
 ![](pres_pictures/points-vector.png)
 ]]
+---
+
+### **Lines**
+One dimensional and are only used to measure length
+.center[
+.img-small[
+![](pres_pictures/line-vector.png)
+]]
+
+---
+### **Polygons**
+Two dimensional and are used for measurement of area and parameters of geographical feature. 
+.center[
+.img-small[
+![](pres_pictures/polygon-vector.png)
+]]
+
 
 ---
 
@@ -94,17 +101,15 @@ class: middle, center
 Cell-based data, represents surfaces. Each cell represents a value
 ---
 
-## **Two main types**
+## **Raster can represent two types of data**
 
-### **Continuous**
-Example: temperature, elevation, etc.
+### **Continuous** - temperature, elevation, etc.
 
-### **Discrete**
-Example: population density, species richenss, etc.
+### **Discrete** - population density, species richness, etc.
 
 ---
 
-Rasters have three types of datasets: 
+# **Rasters have three types of datasets:**
 
 ### **Thematic**
 Used to represent discrete data, such as soil type or land use
@@ -114,7 +119,7 @@ Used to represent discrete data, such as soil type or land use
 ]]
 ---
 ### **Spectral**
-Aerial or setalite imagery
+Aerial or setalite imagery used during digital map generation
 .center[
 .img-med[
 ![](pres_pictures/mx.jpg)
@@ -609,24 +614,16 @@ raster::intersect(countries_p, pkmng_raster_c)
 
 ---
 class: center, middle
-# Different GIS tools out there
-
-.center[
-.img-med[
-![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
-]]
----
-class: center, middle
 # Data manipulation
 
 ---
 class: center, middle
-# Georeferencing
-Manipulating two vector data
+# Geoprocessing
+a GIS operation used to manipulate spatial data. A typical geoprocessing operation takes an input dataset, performs an operation on that dataset, and returns the result of the operation as an output dataset
 
 ---
 ### **Buffer points** - creating a polygon based on proximity
-**For example:** buffer some of the pokemon points to 100km radious
+**For example:** buffer some of the pokemon points to 100km radius
 We'll first subset the data to have less points
 
 ```r
@@ -650,9 +647,9 @@ plot(buffer_pkmng_points,add = T, col = "red")
 ---
 ### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer. 
 
-There are a few ways of clipping polygons in R, we will look at using the rgdal package. The latter is more integrated with tidyverse
+There are a few ways of clipping polygons in R, we will look at using the rgdal package. 
 ---
-Lets clip the buffered points to to have the ones that fall in Italy and to fit the bounderies of the Italian coastline.
+Lets clip the buffered points to to have the ones that fall in Italy and to fit the boundaries of the Italian coastline.
 
 First, well filter the countries shapefile to have a shapefile of Italy
 
@@ -716,7 +713,7 @@ Vector-Raster analysis. Allows you to calculate statistics from raster data for 
 **For Example:** We want to calculate the temperature in each point that a pokemon was collected
 
 ---
-Download and plot the mean anual temperature from the web using the getData function
+Download and plot the mean annual temperature from the web using the getData function
 
 ```r
 climate &lt;- raster::getData('worldclim', var='bio', res=10)
@@ -813,7 +810,7 @@ plot(pgi.cor2)
 
 ---
 ## Dealing with spatial autocorrelation
-There are various methods to "eliminate" spatial autocorrelation for hypothesis testing and statiscal inference. All are flawed, each in their own way.
+There are various methods to "eliminate" spatial autocorrelation for hypothesis testing and statistical inference. All are flawed, each in their own way.
 
 We won't talk about them here, but you can read more in the literature:
 https://onlinelibrary.wiley.com/doi/10.1111/j.2007.0906-7590.05171.x
@@ -821,7 +818,7 @@ https://onlinelibrary.wiley.com/doi/10.1111/jbi.12953
 
 ---
 # Spatial non-stationarity
-Often, relationships between variables can shift in space. So global coefficients of models can be very poor at describing the actual behaviour of your data.
+Often, relationships between variables can shift in space. So global coefficients of models can be very poor at describing the actual behavior of your data.
 
 For example, let's look for a relationship between wind speed and temperature in our Pokemon Go sightings data:
 .small[
@@ -1003,13 +1000,21 @@ gwr.map
 ```
 
 &lt;img src="index_files/figure-html/gwr 8-1.png" style="display: block; margin: auto;" /&gt;
+---
+class: center, middle
+# Different GIS tools out there
 
+.center[
+.img-med[
+![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
+]]
 ---
 # TAKE HOME MESSAGES
 
 * Be mindful of projections!
 * Be mindful of spatial autocorrelation!
 * Visualize spatial patterns!
+* No one tool that fits them all
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
