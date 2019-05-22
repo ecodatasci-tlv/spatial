@@ -174,7 +174,7 @@ class: center
 
 ---
 
-Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
+Now that we've learned about different types of spatial data, let's load some. We'll use the `rgdal` package for this:
 
 ```{r rgdal, message = F}
 pacman::p_load(rgdal)
@@ -188,7 +188,7 @@ head(pkmng_countries)
 ```
 
 ---
-As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
+As usual, there is a `tidyverse` alternative to view spatial objects and edit the associated data
 .small[
 ```{r spdplyr}
 pacman::p_load(spdplyr)
@@ -196,7 +196,7 @@ pkmng_countries
 ```
 ]
 ---
-With this package, you can use tidyverse functions to manipulate your spatial data:
+With this package, you can use `tidyverse` functions to manipulate your spatial data:
 .small[
 ```{r spdplyr 2}
 #filter out all countries without any Pokemon sightings, and let's rename the column while we're at it:
@@ -249,7 +249,7 @@ Read more about GeoJSON here: https://macwright.org/2015/03/23/geojson-second-bi
 
 ---
 # Rasters
-Finally, importing rasters is easily done with the raster package:
+Finally, importing rasters is easily done with the `raster` package:
 ```{r raster, message = F, warnings = F}
 pacman::p_load(raster)
 pkmng_raster <- raster("Data/pkmng_raster.tif")
@@ -364,7 +364,7 @@ pkmng_raster@extent
 ```
 
 ---
-You can change the extent of objects using the crop or extend functions, depending on whether you want to decrease or increase the extent:
+You can change the extent of objects using the `crop()` or `extend()` functions, depending on whether you want to decrease or increase the extent:
 ``` {r extent 3, message=F}
 pkmng_raster_c <- crop(pkmng_raster,
                       extent(-50,
@@ -515,7 +515,7 @@ So how do we test for spatial autocorrelation and what can we do about it?
 ---
 ## Testing for spatial autocorrelation
 
-We'll use the pgirmess package:
+We'll use the `pgirmess` package:
 ```{r sp ac, message=F}
 pacman::p_load(pgirmess)
 
@@ -530,6 +530,16 @@ pgi.cor <- correlog(coords = pkmng_points_dat_s[,c("longitude","latitude")], #lo
 The X axis is distance, and the Y axis is our measure of autocorrelation. Values higher than 0 mean there is spatial autocorrelation in that distance class.
 ```{r sp ac 2, message=F}
 plot(pgi.cor)
+```
+
+---
+And this is what it looks like when there's no spatial autocorrelation:
+
+```{r sp ac 3, message=F}
+pgi.cor2 <- correlog(coords = pkmng_points_dat_s[,c("longitude","latitude")], #longitude and latitude, in that order
+                    z = pkmng_points_dat_s$pokemonId, #the variable we want to test for autocorrelation in
+                    method = "Moran")
+plot(pgi.cor2)
 ```
 
 ---

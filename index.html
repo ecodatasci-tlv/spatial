@@ -143,7 +143,7 @@ class: center
 
 ---
 
-Now that we've learned about different types of spatial data, let's load some. We'll use the rgdal package for this:
+Now that we've learned about different types of spatial data, let's load some. We'll use the `rgdal` package for this:
 
 
 ```r
@@ -184,7 +184,7 @@ head(pkmng_countries)
 ```
 
 ---
-As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
+As usual, there is a `tidyverse` alternative to view spatial objects and edit the associated data
 .small[
 
 ```r
@@ -216,7 +216,7 @@ pkmng_countries
 ```
 ]
 ---
-With this package, you can use tidyverse functions to manipulate your spatial data:
+With this package, you can use `tidyverse` functions to manipulate your spatial data:
 .small[
 
 ```r
@@ -355,7 +355,7 @@ Read more about GeoJSON here: https://macwright.org/2015/03/23/geojson-second-bi
 
 ---
 # Rasters
-Finally, importing rasters is easily done with the raster package:
+Finally, importing rasters is easily done with the `raster` package:
 
 ```r
 pacman::p_load(raster)
@@ -565,7 +565,7 @@ pkmng_raster@extent
 ```
 
 ---
-You can change the extent of objects using the crop or extend functions, depending on whether you want to decrease or increase the extent:
+You can change the extent of objects using the `crop()` or `extend()` functions, depending on whether you want to decrease or increase the extent:
 
 ```r
 pkmng_raster_c &lt;- crop(pkmng_raster,
@@ -777,7 +777,7 @@ So how do we test for spatial autocorrelation and what can we do about it?
 ---
 ## Testing for spatial autocorrelation
 
-We'll use the pgirmess package:
+We'll use the `pgirmess` package:
 
 ```r
 pacman::p_load(pgirmess)
@@ -797,6 +797,19 @@ plot(pgi.cor)
 ```
 
 &lt;img src="index_files/figure-html/sp ac 2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+And this is what it looks like when there's no spatial autocorrelation:
+
+
+```r
+pgi.cor2 &lt;- correlog(coords = pkmng_points_dat_s[,c("longitude","latitude")], #longitude and latitude, in that order
+                    z = pkmng_points_dat_s$pokemonId, #the variable we want to test for autocorrelation in
+                    method = "Moran")
+plot(pgi.cor2)
+```
+
+&lt;img src="index_files/figure-html/sp ac 3-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Dealing with spatial autocorrelation
