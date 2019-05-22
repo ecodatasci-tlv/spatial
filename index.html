@@ -3,7 +3,7 @@
   <head>
     <title>Working with spatial data in R</title>
     <meta charset="utf-8" />
-    <meta name="date" content="2019-05-21" />
+    <meta name="date" content="2019-05-22" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/tabwid/tabwid.css" rel="stylesheet" />
     <script src="libs/tabwid/tabwid.js"></script>
@@ -15,7 +15,7 @@ class: center, middle, inverse, title-slide
 
 # Working with spatial data in R
 ## <a href="https://github.com/ecodatasci-tlv/spatial" class="uri">https://github.com/ecodatasci-tlv/spatial</a>
-### 2019-05-21
+### 2019-05-22
 
 ---
 
@@ -39,30 +39,42 @@ class: inverse, middle, center
 
 
 
-
+.small[
 https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
-  
+]  
 ---
-class: inverse, middle, center
+class: middle, center
 
 # **Vector data**
 
 Equivalent to a spreadsheet with a geometry column that describs how to plot the data that represents that feature
----
 
+---
 ### **Polygons**
 Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
-
+.center[
+.img-small[
+![](pres_pictures/polygon-vector.png)
+]]
 ---
 
 ### **Lines**
 One dimentional and are used to only to measure length
+.center[
+.img-small[
+![](pres_pictures/line-vector.png)
+]]
 ---
 
 ### **Points**
 Used to represent nonadjucent features 
+.center[
+.img-small[
+![](pres_pictures/points-vector.png)
+]]
 
---
+---
+
 # File type
 
 * Polygon and lines come in a shapefile format, point usually are stored in XY table (a spreadsheet with latitude and longitude columns)
@@ -75,12 +87,13 @@ Used to represent nonadjucent features
 
 **IMPORTANT:** each shapefile can only store one type of geometry - point/ polygon/ line
 ---
-class: inverse, middle, center
+class: middle, center
 
 # **Raster data**
 
 Cell-based data, represents surfaces. Each cell represents a value
 ---
+
 ## **Two main types**
 
 ### **Continuous**
@@ -95,27 +108,36 @@ Rasters have three types of datasets:
 
 ### **Thematic**
 Used to represent discrete data, such as soil type or land use
-ADD A PICTURE
+.center[
+.img-small[
+![](pres_pictures/thematic_map.png)
+]]
 ---
 ### **Spectral**
 Aerial or setalite imagery
-ADD A PICTURE
+.center[
+.img-med[
+![](pres_pictures/mx.jpg)
+]]
 ---
 ### **Surface**
 Represents continuous changes across a landscape (for example elevation)
-ADD A PICTURE
+.center[
+.img-med[
+![](pres_pictures/gmted2010.png)
+]]
 ---
 
 class: center
 
 # Vector and raster comparison
-<div class="tabwid"><table style='border-collapse:collapse;'><thead><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Data_type</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Pros</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Cons</span></p></td></tr></thead><tbody><tr><td rowspan="3" style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Vector</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">High geographical accuracy</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Doesn’t work well with continuous data</span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Follows topology rules which increases integrity</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Processing intensive due to topology checks</span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Used for measurements of proximity</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;"></span></p></td></tr><tr><td rowspan="3" style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Raster</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Very good for representing remote sensing data</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Less aesthetic pleasing</span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Performs well with map algebra</span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Lacks attribute data flexibility<br></span></p></td></tr><tr><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;"></span></p></td><td style="width:216px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Data size increases with the increase in resolution</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><table style='border-collapse:collapse;'><thead><tr><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Data_type</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Pros</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Cons</span></p></td></tr></thead><tbody><tr><td rowspan="3" style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Vector</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">High geographical accuracy</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Doesn’t work well with continuous data</span></p></td></tr><tr><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Follows topology rules which increases integrity</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Processing intensive due to topology checks</span></p></td></tr><tr><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Used for measurements of proximity</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;"></span></p></td></tr><tr><td rowspan="3" style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Raster</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Very good for representing remote sensing data</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Less aesthetic pleasing</span></p></td></tr><tr><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Performs well with map algebra</span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Lacks attribute data flexibility<br></span></p></td></tr><tr><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;"></span></p></td><td style="width:288px;height:18px;background-color:transparent;vertical-align: middle;transform: rotate(0deg);border-bottom: 1px solid rgba(51, 51, 51, 1.00);border-top: 1px solid rgba(51, 51, 51, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Data size increases with the increase in resolution</span></p></td></tr></tbody></table></div>
 
 ---
 class: center
 # Importing Spatial Data
 .center[
-.img-small[
+.img-med[
 ![](pres_pictures/dims.jpeg)
 ]]
 
@@ -163,6 +185,7 @@ head(pkmng_countries)
 
 ---
 As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
+.small[
 
 ```r
 pacman::p_load(spdplyr)
@@ -191,9 +214,10 @@ pkmng_countries
 ## # … with 236 more rows, and 2 more variables: LAT &lt;dbl&gt;,
 ## #   pkmn_rc &lt;int&gt;
 ```
-
+]
 ---
 With this package, you can use tidyverse functions to manipulate your spatial data:
+.small[
 
 ```r
 #filter out all countries without any Pokemon sightings, and let's rename the column while we're at it:
@@ -224,9 +248,10 @@ pkmng_countries %&gt;%
 ## # ... with 62 more rows, and 3 more variables: LON &lt;dbl&gt;, LAT &lt;dbl&gt;,
 ## #   pkmn_rc &lt;int&gt;
 ```
-
+]
 ---
 Now let's load our point data:
+.small[
 
 ```r
 pkmng_points_dat &lt;- read_csv("Data/pkmng_points.csv")
@@ -280,7 +305,7 @@ pkmng_points_dat
 ## #   cooc_44 &lt;lgl&gt;, cooc_45 &lt;lgl&gt;, cooc_46 &lt;lgl&gt;, cooc_47 &lt;lgl&gt;,
 ## #   cooc_48 &lt;lgl&gt;, cooc_49 &lt;lgl&gt;, cooc_50 &lt;lgl&gt;, ...
 ```
-
+]
 ---
 We are going to create a shapefile from this table.
 
@@ -587,7 +612,7 @@ class: center, middle
 # Different GIS tools out there
 
 .center[
-.img-small[
+.img-med[
 ![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
 ]]
 ---
@@ -601,28 +626,91 @@ Manipulating two vector data
 
 ---
 ### **Buffer points** - creating a polygon based on proximity
-**For example:** buffer all the pokemon points to 1km radious
+**For example:** buffer some of the pokemon points to 100km radious
+We'll first subset the data to have less points
 
 ```r
-#width is in meters
-buffer_pok&lt;- raster::buffer(pkmng_points,width = 1000)
-# plot(buffer_pok)
+sub_pkmng_p&lt;- subset(pkmng_points,pokemonId %in%c(8:10))
+plot(countries)
+plot(sub_pkmng_p,add = T, col = "red")
 ```
 
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+---
+Now we'll buffer the points in a 100km radius to make them into polygons
 
+```r
+buffer_pkmng_points&lt;- raster::buffer(sub_pkmng_p,width = 100000)
+plot(countries)
+plot(buffer_pkmng_points,add = T, col = "red")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer
+### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer. 
+
+There are a few ways of clipping polygons in R, we will look at using the rgdal package. The latter is more integrated with tidyverse
+---
+Lets clip the buffered points to to have the ones that fall in Italy and to fit the bounderies of the Italian coastline.
+
+First, well filter the countries shapefile to have a shapefile of Italy
+
+```r
+Italy &lt;- countries %&gt;% 
+  filter(NAME == "Italy")
+plot(Italy)
+plot(buffer_pkmng_points,add = T, col = "red")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+---
+# `rgeos` package example
+Now, lets clip the the buffered points based on the Italian shapefile we created
+
+```r
+clip_pkmng_rgeos&lt;- rgeos::gIntersection(Italy, buffer_pkmng_points, byid = TRUE, drop_lower_td = TRUE)
+plot(Italy)
+plot(clip_pkmng_rgeos,add = T, col = "red")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
+
 ### **Intersect** - similar to the clip tool because the extents of input features defines the output. The only exception is that it preserves attributes from all the data sets that overlap each other in the output 
+
+Lets intersect the points with the country shapefile to find which points belong to which country
+
+```r
+intersect_pkmg&lt;- raster::intersect(pkmng_points,countries) 
+```
+
 ---
 ### **Merge** - combines data sets that are the same data type
+
+```r
+#subset the countries
+sub_count&lt;- countries %&gt;% filter(NAME==c("France","Italy"))
+sub_count_sf&lt;- sf::st_as_sf(sub_count)
+merge_count&lt;- sf::st_combine(sub_count_sf)
+plot(merge_count)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
 ---
 ### **Dissolve** - The Dissolve Tool unifies boundaries based on common attribute values
 
+```r
+diss_sub_count&lt;- rgeos::gUnaryUnion(sub_count)
+plot(diss_sub_count)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
 ---
-# Spatial statistics
+# Zonal statistics
 Vector-Raster analysis. Allows you to calculate statistics from raster data for each feature in the vector data
 
 **For Example:** We want to calculate the temperature in each point that a pokemon was collected
@@ -636,7 +724,7 @@ annual_prec&lt;- climate$bio12
 plot(annual_prec)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 Now lets calculate the mean temperature in each point
@@ -723,6 +811,7 @@ https://onlinelibrary.wiley.com/doi/10.1111/jbi.12953
 Often, relationships between variables can shift in space. So global coefficients of models can be very poor at describing the actual behaviour of your data.
 
 For example, let's look for a relationship between wind speed and temperature in our Pokemon Go sightings data:
+.small[
 
 ```r
 lm.model &lt;- lm(windSpeed ~
@@ -751,7 +840,7 @@ summary(lm.model)
 ## Multiple R-squared:  0.01176,	Adjusted R-squared:  0.01109 
 ## F-statistic: 17.59 on 1 and 1478 DF,  p-value: 2.906e-05
 ```
-
+]
 ---
 Now, we'll map the residuals from this model:
 
@@ -776,6 +865,7 @@ Notice how the red and blue dots are clustered together, and not randomly distri
 ---
 We can use a method called GWR (Globally Weighted Regression) to account for this - basically, you calculate a regression coefficient for each datum, weighing the contribution of all data based on their spatial distance from your focal datum.
 
+.small[
 
 ```r
 pacman::p_load(spgwr)
@@ -808,7 +898,7 @@ GWRbandwidth &lt;- gwr.sel(windSpeed ~
 ## Adaptive q: 0.008304636 CV score: 20328.57 
 ## Adaptive q: 0.008357601 CV score: 20328.39
 ```
-
+]
 ---
 
 ```r
@@ -826,6 +916,7 @@ gwr.results &lt;- as_tibble(gwr.model$SDF)
 
 ---
 Now we can view the table of the results, and see the coefficient for each datum in our dataset - i.e. for each point locality. We can see they vary quite a bit.
+.small[
 
 ```r
 gwr.results
@@ -850,10 +941,10 @@ gwr.results
 ## #   X.Intercept._se_EDF &lt;dbl&gt;, temperature_se_EDF &lt;dbl&gt;,
 ## #   pred.se.1 &lt;dbl&gt;, coord.x &lt;dbl&gt;, coord.y &lt;dbl&gt;
 ```
-
+]
 ---
 Now let's plot this and see exactly what this non-stationarity looks like:
-
+.small[
 
 ```r
 pkmng_points_dat_s$coef &lt;- gwr.results$temperature
@@ -889,7 +980,7 @@ gwr.map &lt;- ggplot(data = pkmng_points_dat_s,
 ```
 ## Warning: Non Lab interpolation is deprecated
 ```
-
+]
 ---
 And see how the regression coefficients change with space - blue for positive coefficients and red for negative ones:
 

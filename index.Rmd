@@ -55,30 +55,42 @@ class: inverse, middle, center
 
 
 
-
+.small[
 https://www.gislounge.com/geodatabases-explored-vector-and-raster-data/
-  
+]  
 ---
-class: inverse, middle, center
+class: middle, center
 
 # **Vector data**
 
 Equivalent to a spreadsheet with a geometry column that describs how to plot the data that represents that feature
----
 
+---
 ### **Polygons**
 Two dimentional and are used for measurment of area and paramiters ofa geographical feature. 
-
+.center[
+.img-small[
+![](pres_pictures/polygon-vector.png)
+]]
 ---
 
 ### **Lines**
 One dimentional and are used to only to measure length
+.center[
+.img-small[
+![](pres_pictures/line-vector.png)
+]]
 ---
 
 ### **Points**
 Used to represent nonadjucent features 
+.center[
+.img-small[
+![](pres_pictures/points-vector.png)
+]]
 
---
+---
+
 # File type
 
 * Polygon and lines come in a shapefile format, point usually are stored in XY table (a spreadsheet with latitude and longitude columns)
@@ -91,12 +103,13 @@ Used to represent nonadjucent features
 
 **IMPORTANT:** each shapefile can only store one type of geometry - point/ polygon/ line
 ---
-class: inverse, middle, center
+class: middle, center
 
 # **Raster data**
 
 Cell-based data, represents surfaces. Each cell represents a value
 ---
+
 ## **Two main types**
 
 ### **Continuous**
@@ -111,15 +124,24 @@ Rasters have three types of datasets:
 
 ### **Thematic**
 Used to represent discrete data, such as soil type or land use
-ADD A PICTURE
+.center[
+.img-small[
+![](pres_pictures/thematic_map.png)
+]]
 ---
 ### **Spectral**
 Aerial or setalite imagery
-ADD A PICTURE
+.center[
+.img-med[
+![](pres_pictures/mx.jpg)
+]]
 ---
 ### **Surface**
 Represents continuous changes across a landscape (for example elevation)
-ADD A PICTURE
+.center[
+.img-med[
+![](pres_pictures/gmted2010.png)
+]]
 ---
 
 class: center
@@ -138,7 +160,7 @@ myft <- flextable(
   col_keys = c("Data_type", "Pros", "Cons"))
 
 myft<- bold(merge_v(theme_vanilla(myft),j="Data_type"),j = "Data_type")
-align(width(fontsize(x = myft,size = 20,part = "all"),width = 3),align = 'left',part = 'all')
+align(width(fontsize(x = myft,size = 20,part = "all"),width = 4),align = 'left',part = 'all')
 
 ```
 
@@ -146,7 +168,7 @@ align(width(fontsize(x = myft,size = 20,part = "all"),width = 3),align = 'left',
 class: center
 # Importing Spatial Data
 .center[
-.img-small[
+.img-med[
 ![](pres_pictures/dims.jpeg)
 ]]
 
@@ -167,27 +189,30 @@ head(pkmng_countries)
 
 ---
 As usual, there is a tidyverse alternative to view spatial objects and edit the associated data
+.small[
 ```{r spdplyr}
 pacman::p_load(spdplyr)
 pkmng_countries
 ```
-
+]
 ---
 With this package, you can use tidyverse functions to manipulate your spatial data:
+.small[
 ```{r spdplyr 2}
 #filter out all countries without any Pokemon sightings, and let's rename the column while we're at it:
 pkmng_countries %>%
   filter(pkmn_rc > 0) %>%
   rename(Country = NAME)
 ```
-
+]
 ---
 Now let's load our point data:
+.small[
 ```{r points, message = F}
 pkmng_points_dat <- read_csv("Data/pkmng_points.csv")
 pkmng_points_dat
 ```
-
+]
 ---
 We are going to create a shapefile from this table.
 
@@ -369,7 +394,7 @@ class: center, middle
 # Different GIS tools out there
 
 .center[
-.img-small[
+.img-med[
 ![](pres_pictures/Screenshot 2019-05-21 20.53.18.png)
 ]]
 ---
@@ -383,27 +408,72 @@ Manipulating two vector data
 
 ---
 ### **Buffer points** - creating a polygon based on proximity
-**For example:** buffer all the pokemon points to 1km radious
+**For example:** buffer some of the pokemon points to 100km radious
+We'll first subset the data to have less points
 ```{r}
-#width is in meters
-buffer_pok<- raster::buffer(pkmng_points,width = 1000)
-# plot(buffer_pok)
+sub_pkmng_p<- subset(pkmng_points,pokemonId %in%c(8:10))
+plot(countries)
+plot(sub_pkmng_p,add = T, col = "red")
+```
+---
+Now we'll buffer the points in a 100km radius to make them into polygons
+```{r}
+buffer_pkmng_points<- raster::buffer(sub_pkmng_p,width = 100000)
+plot(countries)
+plot(buffer_pkmng_points,add = T, col = "red")
 ```
 
+---
+### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer. 
 
+There are a few ways of clipping polygons in R, we will look at using the rgdal package. The latter is more integrated with tidyverse
+---
+Lets clip the buffered points to to have the ones that fall in Italy and to fit the bounderies of the Italian coastline.
+
+First, well filter the countries shapefile to have a shapefile of Italy
+```{r}
+Italy <- countries %>% 
+  filter(NAME == "Italy")
+plot(Italy)
+plot(buffer_pkmng_points,add = T, col = "red")
+```
+---
+# `rgeos` package example
+Now, lets clip the the buffered points based on the Italian shapefile we created
+```{r}
+clip_pkmng_rgeos<- rgeos::gIntersection(Italy, buffer_pkmng_points, byid = TRUE, drop_lower_td = TRUE)
+plot(Italy)
+plot(clip_pkmng_rgeos,add = T, col = "red")
+```
 
 ---
-### **Clip** - an overlay function that cuts out an input layer with the extent of a defined feature boundary. The result of this tool is a new clipped output layer
 
----
 ### **Intersect** - similar to the clip tool because the extents of input features defines the output. The only exception is that it preserves attributes from all the data sets that overlap each other in the output 
+
+Lets intersect the points with the country shapefile to find which points belong to which country
+```{r}
+intersect_pkmg<- raster::intersect(pkmng_points,countries) 
+```
+
 ---
 ### **Merge** - combines data sets that are the same data type
----
-### **Dissolve** - The Dissolve Tool unifies boundaries based on common attribute values
+```{r}
+#subset the countries
+sub_count<- countries %>% filter(NAME==c("France","Italy"))
+sub_count_sf<- sf::st_as_sf(sub_count)
+merge_count<- sf::st_combine(sub_count_sf)
+plot(merge_count)
+```
 
 ---
-# Spatial statistics
+### **Dissolve** - The Dissolve Tool unifies boundaries based on common attribute values
+```{r}
+diss_sub_count<- rgeos::gUnaryUnion(sub_count)
+plot(diss_sub_count)
+```
+
+---
+# Zonal statistics
 Vector-Raster analysis. Allows you to calculate statistics from raster data for each feature in the vector data
 
 **For Example:** We want to calculate the temperature in each point that a pokemon was collected
@@ -475,13 +545,14 @@ https://onlinelibrary.wiley.com/doi/10.1111/jbi.12953
 Often, relationships between variables can shift in space. So global coefficients of models can be very poor at describing the actual behaviour of your data.
 
 For example, let's look for a relationship between wind speed and temperature in our Pokemon Go sightings data:
+.small[
 ```{r gwr, message=F}
 lm.model <- lm(windSpeed ~
              temperature,
            data = pkmng_points_dat_s)
 summary(lm.model)
 ```
-
+]
 ---
 Now, we'll map the residuals from this model:
 ```{r gwr 2, message=F}
@@ -502,6 +573,7 @@ Notice how the red and blue dots are clustered together, and not randomly distri
 ---
 We can use a method called GWR (Globally Weighted Regression) to account for this - basically, you calculate a regression coefficient for each datum, weighing the contribution of all data based on their spatial distance from your focal datum.
 
+.small[
 ```{r gwr 4, message=F}
 pacman::p_load(spgwr)
 GWRbandwidth <- gwr.sel(windSpeed ~
@@ -511,7 +583,7 @@ GWRbandwidth <- gwr.sel(windSpeed ~
                                                     pkmng_points_dat_s$latitude),
                         adapt = T)
 ```
-
+]
 ---
 ```{r gwr 5, message=F}
 gwr.model <- gwr(windSpeed ~
@@ -528,13 +600,14 @@ gwr.results <- as_tibble(gwr.model$SDF)
 
 ---
 Now we can view the table of the results, and see the coefficient for each datum in our dataset - i.e. for each point locality. We can see they vary quite a bit.
+.small[
 ```{r gwr 6, message=F}
 gwr.results
 ```
-
+]
 ---
 Now let's plot this and see exactly what this non-stationarity looks like:
-
+.small[
 ```{r gwr 7, message=F}
 pkmng_points_dat_s$coef <- gwr.results$temperature
 countries_outline <- fortify(countries,
@@ -558,7 +631,7 @@ gwr.map <- ggplot(data = pkmng_points_dat_s,
                          guide_legend(title="Coefs")) +
   coord_equal()
 ```
-
+]
 ---
 And see how the regression coefficients change with space - blue for positive coefficients and red for negative ones:
 
